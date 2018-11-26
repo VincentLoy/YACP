@@ -16,4 +16,4 @@ use YACP\YACP;
 
 include "libs/YACP.php";
 
-YACP::init();
+new YACP();

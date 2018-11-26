@@ -65,7 +65,31 @@ class YacpPostType
             'theme' => array(
                 'name' => __('Theme', 'yacp_textdomain'),
                 'key' => '_yacp_theme'
-            )
+            ),
+            'year' => array(
+                'name' => __('Year', 'yacp_textdomain'),
+                'key' => '_yacp_year'
+            ),
+            'month' => array(
+                'name' => __('Month', 'yacp_textdomain'),
+                'key' => '_yacp_month'
+            ),
+            'day' => array(
+                'name' => __('Day', 'yacp_textdomain'),
+                'key' => '_yacp_day'
+            ),
+            'hour' => array(
+                'name' => __('Hour', 'yacp_textdomain'),
+                'key' => '_yacp_hour'
+            ),
+            'minute' => array(
+                'name' => __('Minute', 'yacp_textdomain'),
+                'key' => '_yacp_minute'
+            ),
+            'second' => array(
+                'name' => __('Second', 'yacp_textdomain'),
+                'key' => '_yacp_second'
+            ),
         );
 
         add_action('init', array($this, 'register_my_cpts_yacp_post'));
@@ -136,7 +160,7 @@ class YacpPostType
         }
 
         return __(
-            'The Shortcode previe will be displayed here after post is saved',
+            'The Shortcode preview will be displayed here after post is saved',
             'yacp_textdomain'
         );
     }
@@ -151,14 +175,16 @@ class YacpPostType
             'yacp_shortcode_preview',
             __('YACP Shortcode Preview', 'yacp_textdomain'),
             array($this, 'yacp_add_shortcode_preview'),
-            $this->custom_post_slug
+            $this->custom_post_slug,
+            'normal'
         );
 
         add_meta_box(
             'yacp_countdown',
             __('YACP Countdown Settings', 'yacp_textdomain'),
             array($this, 'yacp_add_theme_fields'),
-            $this->custom_post_slug
+            $this->custom_post_slug,
+            'normal'
         );
     }
 

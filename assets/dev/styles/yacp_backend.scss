@@ -1,0 +1,48 @@
+@import "../../../node_modules/flatpickr/dist/ie";
+@import "../../../node_modules/flatpickr/dist/flatpickr";
+
+$color-black: #000000;
+$color-black-light: #171717;
+
+$color-blue: #14213D;
+$color-blue-light: #29354E;
+
+$color-orange: #FCA311;
+$color-orange-light: #FCB33C;
+
+$color-gray: #E5E5E5;
+$color-gray-light: #E9E9E9;
+
+$color-white: #FFFFFF;
+
+.admin-bar.post-type-yacp_post {
+  #normal-sortables {
+    display: none;
+  }
+}
+
+#yacp_shortcode_preview {
+  .handlediv {
+    display: none;
+  }
+
+  h2 {
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  .yacp_shortcode_preview {
+    input {
+      padding: 20px;
+      font-size: 18px;
+      text-align: center;
+      box-shadow: none;
+      border: 1px solid $color-blue-light;
+      background: $color-gray-light;
+      font-weight: bold;
+      font-family: 'Open Sans', sans-serif;
+      cursor: pointer;
+      color: $color-blue;
+    }
+  }
+}

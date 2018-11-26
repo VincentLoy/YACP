@@ -18,4 +18,8 @@
             <?php endforeach; ?>
         </select>
     </div>
+
+    <div class="date-picker">
+        <input type="datetime" name="yacp_date" class="yacp_datepicker">
+    </div>
 </div>
