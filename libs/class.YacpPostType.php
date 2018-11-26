@@ -17,6 +17,12 @@ namespace YACP;
  */
 class YacpPostType
 {
+
+    /**
+     * This is where all needed vars are instancied.
+     * Some needed actions are listed here too
+     * YacpPostType constructor.
+     */
     function __construct()
     {
         $this->custom_post_slug = 'yacp_post';
@@ -67,17 +73,25 @@ class YacpPostType
     }
 
 
+    /**
+     * Add the YACP meta box
+     */
     function custom_meta_boxes()
     {
         add_meta_box(
             'yacp_countdown',
             __('YACP Countdown Settings', 'yacp_textdomain'),
-            array($this, 'yacp_add_theme_field'),
+            array($this, 'yacp_add_theme_fields'),
             $this->custom_post_slug
         );
     }
 
-    function yacp_add_theme_field($post)
+    /**
+     * Callback of the add_meta_box above
+     * This is where the form template is built
+     * @param $post
+     */
+    function yacp_add_theme_fields($post)
     {
 
         // Add a nonce field so we can check for it later.
@@ -92,6 +106,10 @@ class YacpPostType
         include 'admin/tpl.yacp_custom_field.php';
     }
 
+    /**
+     * Save the custom meta tags for YACP post type
+     * @param $post_id
+     */
     function yacp_save_meta_box_data($post_id)
     {
 
@@ -128,7 +146,7 @@ class YacpPostType
     }
 
     /**
-     *
+     * Simply Register the YACP Custom Post Type
      */
     function register_my_cpts_yacp_post()
     {
