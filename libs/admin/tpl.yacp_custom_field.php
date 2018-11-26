@@ -8,9 +8,9 @@
 <div class="yacp_settings">
     <div class="form-row">
         <label for="yacp_theme">
-            <?php _e('Theme', 'yacp_textdomain'); ?>
+            <?php echo $this->custom_fields['theme']['name']; ?>
         </label>
-        <select name="yacp_theme" id="yacp_theme">
+        <select name="yacp_theme" id="yacp_theme" width="120">
             <?php foreach ($this->available_themes as $key => $value) : ?>
                 <option value="<?php echo $key ?>" <?php if ($theme == $key) echo 'selected'; ?>>
                     <?php echo $value ?>
