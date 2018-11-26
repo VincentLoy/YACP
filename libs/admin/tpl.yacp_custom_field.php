@@ -12,7 +12,7 @@
         </label>
         <select name="yacp_theme" id="yacp_theme" width="120">
             <?php foreach ($this->available_themes as $key => $value) : ?>
-                <option value="<?php echo $key ?>" <?php if ($theme == $key) echo 'selected'; ?>>
+                <option value="<?php echo $key ?>" <?php if ($ctx['theme'] == $key) echo 'selected'; ?>>
                     <?php echo $value ?>
                 </option>
             <?php endforeach; ?>

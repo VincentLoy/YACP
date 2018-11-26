@@ -72,6 +72,74 @@ class YacpPostType
         add_action('save_post', array($this, 'yacp_save_meta_box_data'));
     }
 
+    /**
+     * Check if we are in EDIT page or NEW POST page
+     * @param string $new_edit
+     * @return bool
+     */
+    protected function is_edit_page($new_edit = 'edit')
+    {
+        global $pagenow;
+
+        if ($new_edit == 'edit')
+            return in_array($pagenow, array('post.php',));
+        elseif ($new_edit == "new") //check for new post page
+            return in_array($pagenow, array('post-new.php'));
+        else //check for either new or edit
+            return in_array($pagenow, array('post.php', 'post-new.php'));
+    }
+
+    /**
+     * Create the context for admin meta boxes view
+     * @param $post
+     * @return array
+     */
+    protected function get_template_context($post)
+    {
+        /*
+         * Use get_post_meta() to retrieve an existing value
+         * from the database and use the value for the form.
+         */
+        return array(
+            'ID' => $post->ID,
+            'theme' => get_post_meta($post->ID, $this->custom_fields['theme']['key'], true)
+        );
+    }
+
+    /**
+     * Generate the heart <3 of the shortcode
+     * @param $center
+     * @param $key
+     * @param $value
+     * @return string
+     */
+    protected function populate_shortcode($center, $key, $value)
+    {
+        return ' ' . $center . $key . '="' . $value . '"';
+    }
+
+    /**
+     * Create the preview shortcode to allow user to copy/paste it
+     * @param $post
+     * @return string
+     */
+    protected function get_shortcode_preview($post)
+    {
+        $sc_start = '[yacp';
+        $sc_center = '';
+        $sc_end = ']';
+
+        if ($this->is_edit_page()) {
+            $sc_center = $this->populate_shortcode($sc_center, 'id', $post->ID);
+            return $sc_start . $sc_center . $sc_end;
+        }
+
+        return __(
+            'The Shortcode previe will be displayed here after post is saved',
+            'yacp_textdomain'
+        );
+    }
+
 
     /**
      * Add the YACP meta box
@@ -79,11 +147,24 @@ class YacpPostType
     function custom_meta_boxes()
     {
         add_meta_box(
+            'yacp_shortcode_preview',
+            __('YACP Shortcode Preview', 'yacp_textdomain'),
+            array($this, 'yacp_add_shortcode_preview'),
+            $this->custom_post_slug
+        );
+
+        add_meta_box(
             'yacp_countdown',
             __('YACP Countdown Settings', 'yacp_textdomain'),
             array($this, 'yacp_add_theme_fields'),
             $this->custom_post_slug
         );
+    }
+
+    function yacp_add_shortcode_preview($post)
+    {
+        $shortcode = $this->get_shortcode_preview($post);
+        include 'admin/tpl.yacp_shortcode_preview.php';
     }
 
     /**
@@ -97,12 +178,7 @@ class YacpPostType
         // Add a nonce field so we can check for it later.
         wp_nonce_field('yacp_save_meta_box_data', 'yacp_meta_box_nonce');
 
-        /*
-         * Use get_post_meta() to retrieve an existing value
-         * from the database and use the value for the form.
-         */
-        $theme = get_post_meta($post->ID, $this->custom_fields['theme']['key'], true);
-
+        $ctx = $this->get_template_context($post);
         include 'admin/tpl.yacp_custom_field.php';
     }
 
@@ -112,7 +188,6 @@ class YacpPostType
      */
     function yacp_save_meta_box_data($post_id)
     {
-
         if (!isset($_POST['yacp_meta_box_nonce'])) {
             return;
         }
