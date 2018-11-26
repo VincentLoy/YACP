@@ -53,6 +53,7 @@ class YacpPostType
             "rewrite" => false,
             "query_var" => false,
             "supports" => array("title",),
+            "menu_icon" => "dashicons-clock",
         );
 
         $this->available_themes = array(
