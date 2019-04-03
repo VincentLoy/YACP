@@ -22,6 +22,7 @@ class YACP
     {
         $this->init();
         $this->load_assets();
+        $this->load_shortcode();
     }
 
     public function init()
@@ -45,5 +46,30 @@ class YACP
     {
         wp_register_script('yacp_admin_js', plugin_dir_url(__DIR__) . '/assets/dist/yacp.backend.js', false, '');
         wp_enqueue_script('yacp_admin_js');
+    }
+
+    public function load_shortcode()
+    {
+        add_shortcode('yacp', array($this, 'yacp_shortcode'));
+    }
+
+    public function yacp_shortcode($params)
+    {
+        $params = shortcode_atts(array(
+            'id' => null,
+        ), $params);
+
+        $cd = get_post($params['id']);
+
+        if (!empty($cd) && !empty($cd->post_type) && $cd->post_type === 'yacp_post') {
+            $cd->yacp_date = get_post_meta($cd->ID, "_yacp_date", true);
+            $cd->yacp_utc = get_post_meta($cd->ID, "_yacp_utc", true);
+            $cd->yacp_theme = get_post_meta($cd->ID, "_yacp_theme", true);
+
+            return '<strong>Must display the countdown registered date : ' . $cd->yacp_date . ' with UTC set to "' . $cd->yacp_utc . '" Theme choosen is : ' . $cd->yacp_theme . '</strong>';
+        } else {
+            return "fail";
+        }
+
     }
 }

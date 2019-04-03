@@ -6,7 +6,27 @@
 ?>
 
 <div class="yacp_settings">
-    <div class="form-row">
+    <div class="form-block date-picker">
+        <label for="yacp_date">
+            <?php echo $this->custom_fields['date']['name']; ?>
+        </label>
+        <input type="datetime"
+               id="yacp_date"
+               name="yacp_date"
+                <?php if (!empty($ctx['date'])) echo 'value="' . $ctx['date'] . '"'; ?>
+               class="yacp_date">
+    </div>
+    <div class="form-block utc">
+        <label for="yacp_utc">
+            <?php echo $this->custom_fields['utc']['name']; ?>
+        </label>
+        <input type="checkbox"
+               name="yacp_utc"
+               id="yacp_utc"
+                <?php if (!empty($ctx['utc'])) echo 'checked'; ?>
+               class="yacp_utc">
+    </div>
+    <div class="form-block">
         <label for="yacp_theme">
             <?php echo $this->custom_fields['theme']['name']; ?>
         </label>
@@ -17,9 +37,5 @@
                 </option>
             <?php endforeach; ?>
         </select>
-    </div>
-
-    <div class="date-picker">
-        <input type="datetime" name="yacp_date" class="yacp_datepicker">
     </div>
 </div>

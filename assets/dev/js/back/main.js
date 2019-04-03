@@ -6,7 +6,7 @@
  */
 
 window.setTimeout(function () {
-    flatpickr('.yacp_datepicker', {
+    flatpickr('.yacp_date', {
         enableTime: true,
         dateFormat: "Y-m-d H:i",
         altFormat: 'F j, Y'

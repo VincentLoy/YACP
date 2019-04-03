@@ -28,12 +28,12 @@ class YacpPostType
         $this->custom_post_slug = 'yacp_post';
 
         $this->labels = array(
-            "name" => __("YACP Countdowns", "twentyfifteen"),
-            "singular_name" => __("YACP Countdown", "twentyfifteen"),
+            "name" => __("YACP Countdowns", "yacp_textdomain"),
+            "singular_name" => __("YACP Countdown", "yacp_textdomain"),
         );
 
         $this->args = array(
-            "label" => __("YACP Countdowns", "twentyfifteen"),
+            "label" => __("YACP Countdowns", "yacp_textdomain"),
             "labels" => $this->labels,
             "description" => "",
             "public" => false,
@@ -52,7 +52,7 @@ class YacpPostType
             "hierarchical" => false,
             "rewrite" => false,
             "query_var" => false,
-            "supports" => array("title",),
+            "supports" => array("title", "posts-formats"),
             "menu_icon" => "dashicons-clock",
         );
 
@@ -66,29 +66,13 @@ class YacpPostType
                 'name' => __('Theme', 'yacp_textdomain'),
                 'key' => '_yacp_theme'
             ),
-            'year' => array(
-                'name' => __('Year', 'yacp_textdomain'),
-                'key' => '_yacp_year'
+            'date' => array(
+                'name' => __('Date', 'yacp_textdomain'),
+                'key' => '_yacp_date'
             ),
-            'month' => array(
-                'name' => __('Month', 'yacp_textdomain'),
-                'key' => '_yacp_month'
-            ),
-            'day' => array(
-                'name' => __('Day', 'yacp_textdomain'),
-                'key' => '_yacp_day'
-            ),
-            'hour' => array(
-                'name' => __('Hour', 'yacp_textdomain'),
-                'key' => '_yacp_hour'
-            ),
-            'minute' => array(
-                'name' => __('Minute', 'yacp_textdomain'),
-                'key' => '_yacp_minute'
-            ),
-            'second' => array(
-                'name' => __('Second', 'yacp_textdomain'),
-                'key' => '_yacp_second'
+            'utc' => array(
+                'name' => __('UTC Date', 'yacp_textdomain'),
+                'key' => '_yacp_utc'
             ),
         );
 
@@ -127,7 +111,9 @@ class YacpPostType
          */
         return array(
             'ID' => $post->ID,
-            'theme' => get_post_meta($post->ID, $this->custom_fields['theme']['key'], true)
+            'theme' => get_post_meta($post->ID, $this->custom_fields['theme']['key'], true),
+            'date' => get_post_meta($post->ID, $this->custom_fields['date']['key'], true),
+            'utc' => get_post_meta($post->ID, $this->custom_fields['utc']['key'], true),
         );
     }
 
@@ -169,14 +155,16 @@ class YacpPostType
     /**
      * Add the YACP meta box
      */
-    function custom_meta_boxes()
+    public function custom_meta_boxes()
     {
+
         add_meta_box(
-            'yacp_shortcode_preview',
-            __('YACP Shortcode Preview', 'yacp_textdomain'),
+            'yacp_shortcode_preview_box',
+            __('Maméno', 'yacp_textdomain'),
             array($this, 'yacp_add_shortcode_preview'),
             $this->custom_post_slug,
-            'normal'
+            'normal',
+            'low'
         );
 
         add_meta_box(
@@ -184,11 +172,40 @@ class YacpPostType
             __('YACP Countdown Settings', 'yacp_textdomain'),
             array($this, 'yacp_add_theme_fields'),
             $this->custom_post_slug,
-            'normal'
+            'normal',
+            'high'
+        );
+
+        add_meta_box(
+            'yacp_donation_box',
+            __('Make a donation <3', 'yacp_textdomain'),
+            array($this, 'yacp_donation'),
+            $this->custom_post_slug,
+            'side',
+            'core'
+        );
+
+        add_meta_box(
+            'yacp_last_box',
+            __('test', 'yacp_textdomain'),
+            array($this, 'yacp_last_box'),
+            $this->custom_post_slug,
+            'advanced',
+            'low'
         );
     }
 
-    function yacp_add_shortcode_preview($post)
+    public function yacp_last_box($post)
+    {
+        echo '<div class="blob">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam magni neque possimus ullam. Eveniet, mollitia neque nisi numquam rem ullam?</div>';
+    }
+
+    public function yacp_donation($post)
+    {
+        echo '<img src="https://via.placeholder.com/255x305"/>';
+    }
+
+    public function yacp_add_shortcode_preview($post)
     {
         $shortcode = $this->get_shortcode_preview($post);
         include 'admin/tpl.yacp_shortcode_preview.php';
@@ -199,7 +216,7 @@ class YacpPostType
      * This is where the form template is built
      * @param $post
      */
-    function yacp_add_theme_fields($post)
+    public function yacp_add_theme_fields($post)
     {
 
         // Add a nonce field so we can check for it later.
@@ -213,7 +230,7 @@ class YacpPostType
      * Save the custom meta tags for YACP post type
      * @param $post_id
      */
-    function yacp_save_meta_box_data($post_id)
+    public function yacp_save_meta_box_data($post_id)
     {
         if (!isset($_POST['yacp_meta_box_nonce'])) {
             return;
@@ -238,19 +255,29 @@ class YacpPostType
             }
         }
 
-        if (!isset($_POST['yacp_theme'])) {
+        if (!isset($_POST['yacp_theme']) || !isset($_POST['yacp_date'])) {
             return;
         }
 
         $theme = sanitize_text_field($_POST['yacp_theme']);
+        $date = $_POST['yacp_date'];
+        $utc = $_POST['yacp_utc'];
+
+//        var_dump($_POST);
+        echo $theme;
+        echo $date;
+        echo $utc;
+//        exit();
 
         update_post_meta($post_id, $this->custom_fields['theme']['key'], $theme);
+        update_post_meta($post_id, $this->custom_fields['date']['key'], $date);
+        update_post_meta($post_id, $this->custom_fields['utc']['key'], $utc);
     }
 
     /**
      * Simply Register the YACP Custom Post Type
      */
-    function register_my_cpts_yacp_post()
+    public function register_my_cpts_yacp_post()
     {
         /**
          * Post Type: YACP Countdowns.
