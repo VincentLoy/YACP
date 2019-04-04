@@ -60,7 +60,8 @@ class YacpPostType
         $this->available_themes = array(
             'default' => __('Default Theme', 'yacp_textdomain'),
             'losange' => __('Losange Theme', 'yacp_textdomain'),
-            'inline' => __('Inline Theme', 'yacp_textdomain')
+            'inline' => __('Inline Theme', 'yacp_textdomain'),
+            'custom' => __('My Custom CSS', 'yacp_textdomain'),
         );
 
         $this->custom_fields = array(

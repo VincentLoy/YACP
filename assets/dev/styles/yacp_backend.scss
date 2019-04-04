@@ -81,7 +81,7 @@ $color-orange: #e59500;
   }
 
   .tutorial {
-    height: 310px;
+    height: 325px;
     max-width: 100%;
     font-size: 18px;
     text-align: justify;
@@ -236,6 +236,19 @@ $color-orange: #e59500;
 
     img {
       width: 100%;
+    }
+  }
+
+  .footer {
+    text-align: right;
+
+    p {
+      margin-right: 15px;
+
+      a {
+        font-weight: bold;
+        text-decoration: none;
+      }
     }
   }
 }

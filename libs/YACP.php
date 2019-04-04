@@ -29,6 +29,7 @@ class YACP
             'default' => 'simply-countdown',
             'losange' => 'simply-countdown-losange',
             'inline' => 'simply-countdown-inline',
+            'custom' => 'simply-countdown-custom',
         );
     }
 

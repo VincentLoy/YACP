@@ -21,7 +21,7 @@
     <div class="step">
         <span>3</span>
 
-        <p>If you like the plugin, make a donation <3</p>
+        <p>If you like it, you can buy me a coffee <3</p>
 
         <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=RQCWG6MMSNCC8&item_name=Support+YACP+Plugin+Dev&currency_code=EUR&source=url" 
             target="_blank"
@@ -33,4 +33,11 @@
             <img src="<?php echo plugin_dir_url(__FILE__) . '../../assets/img/donation_qr_code.png'; ?>" alt="PayPal Donation QR Code">
         </div>
     </div>
+</div>
+
+<div class="footer">
+    <p>
+        <a href="https://vincent-loy.fr/" target="_blank">documentation</a>&nbsp;&nbsp;- &nbsp;
+        This plugin is developped by <a href="https://vincent-loy.fr/" target="_blank">Vincent Loy</a>
+    </p>
 </div>
