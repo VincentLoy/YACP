@@ -5647,6 +5647,11 @@ signal-exit@^3.0.0:
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.2.tgz#b5fdc08f1287ea1178628e415e25132b73646c6d"
   integrity sha1-tf3AjxKH6hF4Yo5BXiUTK3NkbG0=
 
+simplycountdown.js@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/simplycountdown.js/-/simplycountdown.js-1.4.0.tgz#50555edde21fb388ef9f30e070d5e5c77ba6f525"
+  integrity sha512-N3dWCR35OZjNHuV/sCgQ95VzV7NiSboz5ln9ygeVklhCL5Ic7uey3mhLB0z7XWiAWSbIrP4nEyB3INi9TZ2dEg==
+
 slash@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/slash/-/slash-1.0.0.tgz#c41f2f6c39fc16d1cd17ad4b5d896114ae470d55"

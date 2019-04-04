@@ -22,13 +22,14 @@ let gulp = require(`gulp`),
 const JS_BACK_FILES = [
     // libs
     './node_modules/flatpickr/dist/flatpickr.js',
+    './node_modules/simplycountdown.js/dev/simplyCountdown.js',
     // custom
     './assets/dev/js/back/main.js',
 ];
 
 const JS_FRONT_FILES = [
     // libs
-
+    './node_modules/simplycountdown.js/dev/simplyCountdown.js',
     // custom
 ];
 
@@ -69,7 +70,7 @@ gulp.task(`build:es6`, function () {
     return gulp.src(JS_FRONT_FILES)
         .pipe(concat('yacp.front.js'))
         .pipe(babel())
-        .pipe(jsCompressor())
+        // .pipe(jsCompressor())
         .pipe(gulp.dest(`assets/dist`));
 });
 

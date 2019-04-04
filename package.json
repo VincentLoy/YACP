@@ -1,7 +1,7 @@
 {
-  "name": "twog",
+  "name": "YACP",
   "version": "1.0.0",
-  "description": "Twog Automations and other stuff",
+  "description": "YACP stuff",
   "main": "gulpfile.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -30,6 +30,7 @@
     "flatpickr": "^4.5.2",
     "gulp-concat": "^2.6.1",
     "gulp-merge": "^0.1.1",
-    "gulp-string-replace": "^1.1.2"
+    "gulp-string-replace": "^1.1.2",
+    "simplycountdown.js": "^1.4.0"
   }
 }
