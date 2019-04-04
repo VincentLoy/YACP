@@ -1,0 +1,254 @@
+@import "../../../node_modules/flatpickr/dist/ie";
+@import "../../../node_modules/flatpickr/dist/flatpickr";
+
+$color-black: #000000;
+$color-black-light: #171717;
+
+$color-blue-darken: #2e4d64;
+$color-blue-darken-light: #355b79;
+
+$color-blue: #2782fc;
+$color-blue-dark: #3470d8;
+
+$color-gray: #e5e5e5;
+$color-gray-light: #e9e9e9;
+
+$color-white: #ffffff;
+
+$color-orange: #e59500;
+
+.admin-bar.post-type-yacp_post {
+  #normal-sortables {
+    //display: none;
+  }
+}
+
+#yacp_shortcode_preview_box {
+  .handlediv {
+    display: none;
+  }
+
+  h2 {
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  .yacp_shortcode_preview {
+    input {
+      padding: 10px;
+      font-size: 18px;
+      text-align: center;
+      box-shadow: none;
+      border: 1px solid $color-blue-darken-light;
+      background: $color-gray-light;
+      font-weight: bold;
+      font-family: "Open Sans", sans-serif;
+      cursor: pointer;
+      color: $color-blue-darken;
+    }
+  }
+}
+
+.yacp_settings {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 20px 0;
+
+  .form-block {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    label {
+      margin-bottom: 15px;
+    }
+  }
+}
+
+#yacp_last_box {
+  .handlediv,
+  h2 {
+    display: none !important;
+  }
+
+  .inside {
+    padding: 0;
+    margin: 0 0 0;
+    width: 100%;
+    //background: #000;
+  }
+
+  .tutorial {
+    height: 325px;
+    max-width: 100%;
+    font-size: 18px;
+    text-align: justify;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+
+    .step {
+      flex: 1;
+      height: 100%;
+
+      p {
+        font-size: 16px;
+        text-align: center;
+        color: white;
+        font-weight: 500;
+      }
+
+      &:first-of-type,
+      &:last-of-type {
+        background: $color-orange;
+      }
+
+      &:nth-of-type(2) {
+        background: $color-blue-darken;
+        position: relative;
+
+        span {
+          &:before {
+            content: "";
+            height: 7px;
+            width: 170px;
+            position: absolute;
+            background: white;
+            z-index: 99;
+            left: -168px;
+          }
+
+          &:after {
+            content: "";
+            height: 7px;
+            width: 170px;
+            position: absolute;
+            z-index: 99;
+            background: white;
+            right: -168px;
+          }
+        }
+
+        &:before {
+          content: "";
+          width: 50px;
+          height: 120%;
+          background: $color-blue-darken;
+          z-index: 0;
+          position: absolute;
+          left: -20px;
+          transform: rotate(-8deg) translateY(-20px);
+        }
+
+        &:after {
+          content: "";
+          width: 50px;
+          height: 120%;
+          background: $color-blue-darken;
+          z-index: 0;
+          position: absolute;
+          right: -28px;
+          top: 0;
+          transform: rotate(-8deg) translateY(-20px);
+        }
+      }
+
+      &:first-of-type {
+        span {
+          &:after {
+            content: "";
+            z-index: 99;
+            width: 170px;
+            position: absolute;
+            right: -168px;
+            border-top: 7px white dashed;
+          }
+        }
+      }
+
+      &:last-of-type {
+        span {
+          &:before {
+            content: "";
+            width: 170px;
+            z-index: 99;
+            position: absolute;
+            border-top: 7px white dashed;
+            left: -168px;
+          }
+        }
+      }
+
+      span {
+        position: relative;
+        margin: 25px auto auto;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: white;
+        color: $color-blue-darken;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+      }
+    }
+
+    .tuto-ol {
+      padding: 0 50px 0 40px;
+      color: white;
+      font-size: 15px;
+      font-weight: bold;
+      
+      li {
+        margin-bottom: 15px;
+      }
+    }
+  }
+
+  .yacp_donate_btn {
+    display: table;
+    margin: auto;
+    padding: 10px 15px;
+    background: $color-blue-darken;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: 0.2s ease all;
+
+    &:hover {
+      background: $color-blue-darken-light;
+    }
+  }
+
+  .qr-container {
+    background: white;
+    border-radius: 5px;
+    padding: 5px;
+    display: table;
+    margin: 15px auto auto;
+    width: 100px;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  .footer {
+    text-align: right;
+
+    p {
+      margin-right: 15px;
+
+      a {
+        font-weight: bold;
+        text-decoration: none;
+      }
+    }
+  }
+}

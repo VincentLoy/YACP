@@ -1,0 +1,36 @@
+{
+  "name": "YACP",
+  "version": "1.0.0",
+  "description": "YACP stuff",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Vincent Loy <vincent.loy1@gmail.com>",
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "browser-sync": "^2.10.1",
+    "del": "^2.2.0",
+    "gulp": "^3.9.0",
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-babel": "^7.0.0",
+    "gulp-cache": "^0.4.1",
+    "gulp-csso": "^1.0.1",
+    "gulp-eslint": "^1.1.1",
+    "gulp-imagemin": "^2.4.0",
+    "gulp-sass": "^2.1.1",
+    "gulp-uglify": "^1.5.1"
+  },
+  "dependencies": {
+    "@babel/polyfill": "^7.0.0",
+    "aos": "^2.3.4",
+    "babel-plugin-transform-es2015-modules-amd": "^6.24.1",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
+    "babel-preset-env": "^1.7.0",
+    "flatpickr": "^4.5.2",
+    "gulp-concat": "^2.6.1",
+    "gulp-merge": "^0.1.1",
+    "gulp-string-replace": "^1.1.2",
+    "simplycountdown.js": "^1.4.0"
+  }
+}
