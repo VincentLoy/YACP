@@ -76,6 +76,10 @@ class YacpPostType
                 'name' => __('UTC Date', 'yacp_textdomain'),
                 'key' => '_yacp_utc'
             ),
+            'zero_pad' => array(
+                'name' => __('Zero pad', 'yacp_textdomain'),
+                'key' => '_yacp_zero_pad'
+            ),
         );
 
         add_action('init', array($this, 'register_my_cpts_yacp_post'));
@@ -116,6 +120,7 @@ class YacpPostType
             'theme' => get_post_meta($post->ID, $this->custom_fields['theme']['key'], true),
             'date' => get_post_meta($post->ID, $this->custom_fields['date']['key'], true),
             'utc' => get_post_meta($post->ID, $this->custom_fields['utc']['key'], true),
+            'zero_pad' => get_post_meta($post->ID, $this->custom_fields['zero_pad']['key'], true),
         );
     }
 
@@ -264,16 +269,19 @@ class YacpPostType
         $theme = sanitize_text_field($_POST['yacp_theme']);
         $date = $_POST['yacp_date'];
         $utc = $_POST['yacp_utc'];
+        $zero_pad = $_POST['yacp_zero_pad'];
 
 //        var_dump($_POST);
         echo $theme;
         echo $date;
         echo $utc;
+        echo $zero_pad;
 //        exit();
 
         update_post_meta($post_id, $this->custom_fields['theme']['key'], $theme);
         update_post_meta($post_id, $this->custom_fields['date']['key'], $date);
         update_post_meta($post_id, $this->custom_fields['utc']['key'], $utc);
+        update_post_meta($post_id, $this->custom_fields['zero_pad']['key'], $zero_pad);
     }
 
     /**

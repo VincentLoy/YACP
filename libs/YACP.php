@@ -83,14 +83,10 @@ class YACP
                 'Y-m-d H:i',
                 get_post_meta($cd->ID, "_yacp_date", true)
             );
-            $cd->yacp_utc = 'false';
+            $cd->yacp_utc = !empty(get_post_meta($cd->ID, "_yacp_utc", true)) ? 1 : 0;
+            $cd->yacp_zero_pad = !empty(get_post_meta($cd->ID, "_yacp_zero_pad", true)) ? 1 : 0;
             $cd->yacp_theme = get_post_meta($cd->ID, "_yacp_theme", true);
             $cd->is_inline = ($cd->yacp_theme == 'inline') ? 1 : 0;
-
-
-            if (!empty(get_post_meta($cd->ID, "_yacp_utc", true))) {
-                $cd->yacp_utc = 'true';
-            }
 
             $cd_start = var_dump($cd->yacp_date->format('Y')) . '<script>';
             $cd_code = "
@@ -110,8 +106,8 @@ class YACP
                         pluralLetter: 's'
                     },
                     plural: true, //use plurals
-                    inline: " . $cd->is_inline . ", //set to true to get an inline basic countdown like : 24 days, 4 hours, 2 minutes, 5 seconds
-                    inlineClass: 'simply-countdown-inline', //inline css span class in case of inline = true
+                    inline: " . $cd->is_inline . ",
+                    inlineClass: 'simply-countdown-inline',
                     // in case of inline set to false
                     enableUtc: " . $cd->yacp_utc . ",
                     onEnd: function () {
@@ -122,7 +118,7 @@ class YACP
                     sectionClass: 'simply-section', //section css class
                     amountClass: 'simply-amount', // amount css class
                     wordClass: 'simply-word', // word css class
-                    zeroPad: false
+                    zeroPad: " . $cd->yacp_zero_pad . "
                 });
             };
 

@@ -26,6 +26,16 @@
                 <?php if (!empty($ctx['utc'])) echo 'checked'; ?>
                class="yacp_utc">
     </div>
+    <div class="form-block zero_pad">
+        <label for="yacp_zero_pad">
+            <?php echo $this->custom_fields['zero_pad']['name']; ?>
+        </label>
+        <input type="checkbox"
+               name="yacp_zero_pad"
+               id="yacp_zero_pad"
+                <?php if (!empty($ctx['zero_pad'])) echo 'checked'; ?>
+               class="yacp_zero_pad">
+    </div>
     <div class="form-block">
         <label for="yacp_theme">
             <?php echo $this->custom_fields['theme']['name']; ?>
