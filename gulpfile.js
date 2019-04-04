@@ -3,20 +3,16 @@
 'use strict';
 
 let gulp = require(`gulp`),
-    del = require(`del`),
     sass = require(`gulp-sass`),
     babel = require(`gulp-babel`),
     browserSpecificPrefixer = require(`gulp-autoprefixer`),
     cssCompressor = require('gulp-csso'),
     jsCompressor = require(`gulp-uglify`),
-    imageCompressor = require(`gulp-imagemin`),
-    tempCache = require(`gulp-cache`),
     browserSync = require(`browser-sync`),
-    sourcemaps = require('gulp-sourcemaps'),
     concat = require('gulp-concat'),
-    replace = require('gulp-string-replace'),
     reload = browserSync.reload,
     proxyServer = `wordpress.local`,
+    pipeline = require('readable-stream').pipeline,
     browserChoice = `default`;
 
 const JS_BACK_FILES = [
@@ -28,7 +24,7 @@ const JS_BACK_FILES = [
 
 const JS_FRONT_FILES = [
     // libs
-    './node_modules/simplycountdown.js/dev/simplyCountdown.js',
+    './node_modules/simplycountdown.js/dist/simplyCountdown.min.js',
     // custom
 ];
 
@@ -59,38 +55,22 @@ gulp.task(`build:scss`, function () {
 });
 
 
-gulp.task(`build:es6`, function () {
-    gulp.src(JS_BACK_FILES)
+gulp.task(`build:back:es6`, function () {
+    return gulp.src(JS_BACK_FILES)
         .pipe(concat('yacp.backend.js'))
         .pipe(babel())
-        // .pipe(jsCompressor())
+        .pipe(jsCompressor())
         .pipe(gulp.dest('assets/dist'));
-
-    return gulp.src(JS_FRONT_FILES)
-        .pipe(concat('yacp.front.js'))
-        .pipe(babel())
-        // .pipe(jsCompressor())
-        .pipe(gulp.dest(`assets/dist`));
 });
 
-/**
- * COMPRESS THEN COPY IMAGES TO THE PRODUCTION FOLDER
- *
- * This task sources all the images in the dev/img folder, compresses them based on
- * the settings in the object passed to imageCompressor, then copies the final
- * compressed images to the prod/img folder.
- */
-gulp.task(`build:img`, function () {
-    return gulp.src(`assets/dev/img/**/*`)
-        .pipe(tempCache(
-            imageCompressor({
-                optimizationLevel: 3, // For PNG files. Accepts 0 – 7; 3 is default.
-                progressive: true,    // For JPG files.
-                multipass: false,     // For SVG files. Set to true for compression.
-                interlaced: false     // For GIF files. Set to true for compression.
-            })
-        ))
-        .pipe(gulp.dest(`assets/dist/img`));
+gulp.task(`build:front:es6`, function () {
+    return pipeline(
+        gulp.src(JS_FRONT_FILES),
+        concat('yacp.front.js'),
+        babel(),
+        jsCompressor(),
+        gulp.dest(`assets/dist`)
+    );
 });
 
 
@@ -102,12 +82,12 @@ gulp.task(`build:img`, function () {
  */
 gulp.task(`build`, [
     `build:scss`,
-    `build:es6`,
-    `build:img`,
+    `build:front:es6`,
+    `build:back:es6`
 ]);
 
 
-gulp.task(`serve`, [`build:scss`, `build:es6`, 'build:img'], function () {
+gulp.task(`serve`, [`build:scss`, `build:front:es6`, 'build:back:es6'], function () {
     browserSync({
         notify: true,
         port: 9000,
@@ -116,13 +96,10 @@ gulp.task(`serve`, [`build:scss`, `build:es6`, 'build:img'], function () {
         proxy: proxyServer,
     });
 
-    gulp.watch(`assets/dev/js/**/*.js`, ['build:es6'])
+    gulp.watch(`assets/dev/js/**/*.js`, ['build:front:es6', 'build:back:es6'])
         .on(`change`, reload);
 
     gulp.watch(`assets/dev/styles/**/*`, ['build:scss'])
-        .on(`change`, reload);
-
-    gulp.watch(`assets/dev/img/**/*`, ['build:img'])
         .on(`change`, reload);
 
     gulp.watch('./**/*.php')
