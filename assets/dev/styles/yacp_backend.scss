@@ -225,4 +225,17 @@ $color-orange: #e59500;
       background: $color-blue-darken-light;
     }
   }
+
+  .qr-container {
+    background: white;
+    border-radius: 5px;
+    padding: 5px;
+    display: table;
+    margin: 15px auto auto;
+    width: 100px;
+
+    img {
+      width: 100%;
+    }
+  }
 }

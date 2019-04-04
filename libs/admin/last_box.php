@@ -28,5 +28,9 @@
             class="yacp_donate_btn">
             Donate with PayPal
         </a>
+
+        <div class="qr-container">
+            <img src="<?php echo plugin_dir_url(__FILE__) . '../../assets/img/donation_qr_code.png'; ?>" alt="PayPal Donation QR Code">
+        </div>
     </div>
 </div>
