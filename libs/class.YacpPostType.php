@@ -189,10 +189,9 @@ class YacpPostType
      */
     public function custom_meta_boxes()
     {
-
         add_meta_box(
             'yacp_shortcode_preview_box',
-            __('Maméno', 'yacp_textdomain'),
+            __('Shortcode', 'yacp_textdomain'),
             array($this, 'yacp_add_shortcode_preview'),
             $this->custom_post_slug,
             'normal',

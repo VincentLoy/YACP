@@ -70,33 +70,10 @@ class YACP
         add_shortcode('yacp', array($this, 'yacp_shortcode'));
     }
 
-    public function yacp_shortcode($params)
+    protected function generate_javascript($cd, $uid) 
     {
-        $params = shortcode_atts(array(
-            'id' => null,
-        ), $params);
-
-        $cd = get_post($params['id']);
-
-        if (!empty($cd) && !empty($cd->post_type) && $cd->post_type === 'yacp_post') {
-            $uid = md5(uniqid(rand(), true));
-            $cd->yacp_date = date_create_from_format(
-                'Y-m-d H:i',
-                get_post_meta($cd->ID, "_yacp_date", true)
-            );
-            $cd->yacp_utc = !empty(get_post_meta($cd->ID, "_yacp_utc", true)) ? 1 : 0;
-            $cd->yacp_zero_pad = !empty(get_post_meta($cd->ID, "_yacp_zero_pad", true)) ? 1 : 0;
-            $cd->yacp_theme = get_post_meta($cd->ID, "_yacp_theme", true);
-            $cd->is_inline = ($cd->yacp_theme == 'inline') ? 1 : 0;
-
-            $cd->wording_day = (!empty(get_post_meta($cd->ID, "_yacp_days", true))) ? get_post_meta($cd->ID, "_yacp_days", true) : 'day';
-            $cd->wording_hour = (!empty(get_post_meta($cd->ID, "_yacp_hours", true))) ? get_post_meta($cd->ID, "_yacp_hours", true) : 'hour';
-            $cd->wording_minute = (!empty(get_post_meta($cd->ID, "_yacp_minutes", true))) ? get_post_meta($cd->ID, "_yacp_minutes", true) : 'minute';
-            $cd->wording_second = (!empty(get_post_meta($cd->ID, "_yacp_seconds", true))) ? get_post_meta($cd->ID, "_yacp_seconds", true) : 'second';
-            $cd->wording_plural_letter = (!empty(get_post_meta($cd->ID, "_yacp_plural_letter", true))) ? get_post_meta($cd->ID, "_yacp_plural_letter", true) : 's';
-
-            $cd_start = '<script>';
-            $cd_code = "
+        $cd_start_tag = '<script>';
+        $cd_code = "
             function startYACP() {
                 simplyCountdown('#yacp-" . $uid . "', {
                     year: " . $cd->yacp_date->format('Y') . ",
@@ -139,15 +116,40 @@ class YACP
 
             ready(startYACP);
             ";
-            $cd_end_tag = '</script>';
+        $cd_end_tag = '</script>';
 
-            $cd_full = $cd_start . $cd_code .$cd_end_tag;
+        return $cd_start_tag . $cd_code .$cd_end_tag;
+    }
 
-            return '<div id="yacp-' . $uid . '" class="' . $this->theme_classes[$cd->yacp_theme] . '"></div>' . $cd_full;
-            
-            // return '<strong>Must display the countdown registered date : ' . $cd->yacp_date . ' with UTC set to "' . $cd->yacp_utc . '" Theme choosen is : ' . $cd->yacp_theme . '</strong>';
+    public function yacp_shortcode($params)
+    {
+        $params = shortcode_atts(array(
+            'id' => null,
+        ), $params);
+
+        $cd = get_post($params['id']);
+
+        if (!empty($cd) && !empty($cd->post_type) && $cd->post_type === 'yacp_post') {
+            $uid = md5(uniqid(rand(), true));
+            $cd->yacp_date = date_create_from_format(
+                'Y-m-d H:i',
+                get_post_meta($cd->ID, "_yacp_date", true)
+            );
+            $cd->yacp_utc = !empty(get_post_meta($cd->ID, "_yacp_utc", true)) ? 1 : 0;
+            $cd->yacp_zero_pad = !empty(get_post_meta($cd->ID, "_yacp_zero_pad", true)) ? 1 : 0;
+            $cd->yacp_theme = get_post_meta($cd->ID, "_yacp_theme", true);
+            $cd->is_inline = ($cd->yacp_theme == 'inline') ? 1 : 0;
+
+            $cd->wording_day = (!empty(get_post_meta($cd->ID, "_yacp_days", true))) ? get_post_meta($cd->ID, "_yacp_days", true) : 'day';
+            $cd->wording_hour = (!empty(get_post_meta($cd->ID, "_yacp_hours", true))) ? get_post_meta($cd->ID, "_yacp_hours", true) : 'hour';
+            $cd->wording_minute = (!empty(get_post_meta($cd->ID, "_yacp_minutes", true))) ? get_post_meta($cd->ID, "_yacp_minutes", true) : 'minute';
+            $cd->wording_second = (!empty(get_post_meta($cd->ID, "_yacp_seconds", true))) ? get_post_meta($cd->ID, "_yacp_seconds", true) : 'second';
+            $cd->wording_plural_letter = (!empty(get_post_meta($cd->ID, "_yacp_plural_letter", true))) ? get_post_meta($cd->ID, "_yacp_plural_letter", true) : 's';
+
+            return '<div id="yacp-' . $uid . '" class="' . $this->theme_classes[$cd->yacp_theme] . '"></div>' . $this->generate_javascript($cd, $uid);
         } else {
-            return "fail";
+
+            return "Can't display the countdown...";
         }
 
     }

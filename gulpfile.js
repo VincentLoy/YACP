@@ -22,7 +22,6 @@ let gulp = require(`gulp`),
 const JS_BACK_FILES = [
     // libs
     './node_modules/flatpickr/dist/flatpickr.js',
-    './node_modules/simplycountdown.js/dev/simplyCountdown.js',
     // custom
     './assets/dev/js/back/main.js',
 ];
