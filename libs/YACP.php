@@ -23,6 +23,13 @@ class YACP
         $this->init();
         $this->load_assets();
         $this->load_shortcode();
+
+        // See var available_themes in class.YacpPostType.php, they must be sync
+        $this->theme_classes = array(
+            'default' => 'simply-countdown',
+            'losange' => 'simply-countdown-losange',
+            'inline' => 'simply-countdown-inline',
+        );
     }
 
     public function init()
@@ -34,13 +41,16 @@ class YACP
     {
         add_action('admin_enqueue_scripts', array($this, 'admin_enqueue_styles'));
         add_action('admin_enqueue_scripts', array($this, 'admin_enqueue_scripts'));
-        add_action('wp_footer', array($this, 'enqueue_scripts'));
+        add_action('wp_footer', array($this, 'enqueue_scripts_and_styles'));
     }
 
-    public function enqueue_scripts()
+    public function enqueue_scripts_and_styles()
     {
         wp_register_script('yacp_js', plugin_dir_url(__DIR__) . '/assets/dist/yacp.front.js', false, '');
         wp_enqueue_script('yacp_js');
+
+        wp_register_style('yacp_css', plugin_dir_url(__DIR__) . '/assets/dist/yacp_frontend.css', false, '');
+        wp_enqueue_style('yacp_css');
     }
 
     public function admin_enqueue_styles()
@@ -69,20 +79,29 @@ class YACP
         $cd = get_post($params['id']);
 
         if (!empty($cd) && !empty($cd->post_type) && $cd->post_type === 'yacp_post') {
-            $cd->yacp_date = get_post_meta($cd->ID, "_yacp_date", true);
-            $cd->yacp_utc = get_post_meta($cd->ID, "_yacp_utc", true);
+            $cd->yacp_date = date_create_from_format(
+                'Y-m-d H:i',
+                get_post_meta($cd->ID, "_yacp_date", true)
+            );
+            $cd->yacp_utc = 'false';
             $cd->yacp_theme = get_post_meta($cd->ID, "_yacp_theme", true);
+            $cd->is_inline = ($cd->yacp_theme == 'inline') ? 1 : 0;
 
-            $cd_start = '<script>';
+
+            if (!empty(get_post_meta($cd->ID, "_yacp_utc", true))) {
+                $cd->yacp_utc = 'true';
+            }
+
+            $cd_start = var_dump($cd->yacp_date->format('Y')) . '<script>';
             $cd_code = "
             function startYACP() {
                 simplyCountdown('.yacp-" . $params['id'] . "', {
-                    year: 2019, // required
-                    month: 6, // required
-                    day: 28, // required
-                    hours: 0, // Default is 0 [0-23] integer
-                    minutes: 0, // Default is 0 [0-59] integer
-                    seconds: 0, // Default is 0 [0-59] integer
+                    year: " . $cd->yacp_date->format('Y') . ",
+                    month: " . $cd->yacp_date->format('m') . ",
+                    day: " . $cd->yacp_date->format('d') . ",
+                    hours: " . $cd->yacp_date->format('H') . ",
+                    minutes: " . $cd->yacp_date->format('i') . ",
+                    seconds: 0,
                     words: { //words displayed into the countdown
                         days: 'day',
                         hours: 'hour',
@@ -91,10 +110,10 @@ class YACP
                         pluralLetter: 's'
                     },
                     plural: true, //use plurals
-                    inline: false, //set to true to get an inline basic countdown like : 24 days, 4 hours, 2 minutes, 5 seconds
+                    inline: " . $cd->is_inline . ", //set to true to get an inline basic countdown like : 24 days, 4 hours, 2 minutes, 5 seconds
                     inlineClass: 'simply-countdown-inline', //inline css span class in case of inline = true
                     // in case of inline set to false
-                    enableUtc: true,
+                    enableUtc: " . $cd->yacp_utc . ",
                     onEnd: function () {
                         // your code
                         return;
@@ -121,9 +140,9 @@ class YACP
 
             $cd_full = $cd_start . $cd_code .$cd_end_tag;
 
-            return '<div class="yacp-' . $params['id'] . '"></div>' . $cd_full;
-
-            //return '<strong>Must display the countdown registered date : ' . $cd->yacp_date . ' with UTC set to "' . $cd->yacp_utc . '" Theme choosen is : ' . $cd->yacp_theme . '</strong>';
+            return '<div class="yacp-' . $params['id'] . ' ' . $this->theme_classes[$cd->yacp_theme] . '"></div>' . $cd_full;
+            
+            // return '<strong>Must display the countdown registered date : ' . $cd->yacp_date . ' with UTC set to "' . $cd->yacp_utc . '" Theme choosen is : ' . $cd->yacp_theme . '</strong>';
         } else {
             return "fail";
         }

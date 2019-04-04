@@ -56,9 +56,11 @@ class YacpPostType
             "menu_icon" => "dashicons-clock",
         );
 
+        // See var theme_classes in YACP.php, they must be sync
         $this->available_themes = array(
             'default' => __('Default Theme', 'yacp_textdomain'),
-            'losange' => __('Losange Theme', 'yacp_textdomain')
+            'losange' => __('Losange Theme', 'yacp_textdomain'),
+            'inline' => __('Inline Theme', 'yacp_textdomain')
         );
 
         $this->custom_fields = array(
