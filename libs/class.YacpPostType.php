@@ -228,7 +228,7 @@ class YacpPostType
 
     public function yacp_last_box($post)
     {
-        echo '<div class="blob">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam magni neque possimus ullam. Eveniet, mollitia neque nisi numquam rem ullam?</div>';
+        include 'admin/last_box.php';
     }
 
     public function yacp_donation($post)
