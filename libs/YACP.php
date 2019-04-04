@@ -79,6 +79,7 @@ class YACP
         $cd = get_post($params['id']);
 
         if (!empty($cd) && !empty($cd->post_type) && $cd->post_type === 'yacp_post') {
+            $uid = md5(uniqid(rand(), true));
             $cd->yacp_date = date_create_from_format(
                 'Y-m-d H:i',
                 get_post_meta($cd->ID, "_yacp_date", true)
@@ -97,7 +98,7 @@ class YACP
             $cd_start = '<script>';
             $cd_code = "
             function startYACP() {
-                simplyCountdown('#yacp-" . $params['id'] . "', {
+                simplyCountdown('#yacp-" . $uid . "', {
                     year: " . $cd->yacp_date->format('Y') . ",
                     month: " . $cd->yacp_date->format('m') . ",
                     day: " . $cd->yacp_date->format('d') . ",
@@ -142,7 +143,7 @@ class YACP
 
             $cd_full = $cd_start . $cd_code .$cd_end_tag;
 
-            return '<div id="yacp-' . $params['id'] . '" class="' . $this->theme_classes[$cd->yacp_theme] . '"></div>' . $cd_full;
+            return '<div id="yacp-' . $uid . '" class="' . $this->theme_classes[$cd->yacp_theme] . '"></div>' . $cd_full;
             
             // return '<strong>Must display the countdown registered date : ' . $cd->yacp_date . ' with UTC set to "' . $cd->yacp_utc . '" Theme choosen is : ' . $cd->yacp_theme . '</strong>';
         } else {
