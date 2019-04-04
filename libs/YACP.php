@@ -91,7 +91,7 @@ class YACP
             $cd_start = var_dump($cd->yacp_date->format('Y')) . '<script>';
             $cd_code = "
             function startYACP() {
-                simplyCountdown('.yacp-" . $params['id'] . "', {
+                simplyCountdown('#yacp-" . $params['id'] . "', {
                     year: " . $cd->yacp_date->format('Y') . ",
                     month: " . $cd->yacp_date->format('m') . ",
                     day: " . $cd->yacp_date->format('d') . ",
@@ -136,7 +136,7 @@ class YACP
 
             $cd_full = $cd_start . $cd_code .$cd_end_tag;
 
-            return '<div class="yacp-' . $params['id'] . ' ' . $this->theme_classes[$cd->yacp_theme] . '"></div>' . $cd_full;
+            return '<div id="yacp-' . $params['id'] . '" class="' . $this->theme_classes[$cd->yacp_theme] . '"></div>' . $cd_full;
             
             // return '<strong>Must display the countdown registered date : ' . $cd->yacp_date . ' with UTC set to "' . $cd->yacp_utc . '" Theme choosen is : ' . $cd->yacp_theme . '</strong>';
         } else {
