@@ -88,6 +88,12 @@ class YACP
             $cd->yacp_theme = get_post_meta($cd->ID, "_yacp_theme", true);
             $cd->is_inline = ($cd->yacp_theme == 'inline') ? 1 : 0;
 
+            $cd->wording_day = (!empty(get_post_meta($cd->ID, "_yacp_days", true))) ? get_post_meta($cd->ID, "_yacp_days", true) : 'day';
+            $cd->wording_hour = (!empty(get_post_meta($cd->ID, "_yacp_hours", true))) ? get_post_meta($cd->ID, "_yacp_hours", true) : 'hour';
+            $cd->wording_minute = (!empty(get_post_meta($cd->ID, "_yacp_minutes", true))) ? get_post_meta($cd->ID, "_yacp_minutes", true) : 'minute';
+            $cd->wording_second = (!empty(get_post_meta($cd->ID, "_yacp_seconds", true))) ? get_post_meta($cd->ID, "_yacp_seconds", true) : 'second';
+            $cd->wording_plural_letter = (!empty(get_post_meta($cd->ID, "_yacp_plural_letter", true))) ? get_post_meta($cd->ID, "_yacp_plural_letter", true) : 's';
+
             $cd_start = var_dump($cd->yacp_date->format('Y')) . '<script>';
             $cd_code = "
             function startYACP() {
@@ -99,11 +105,11 @@ class YACP
                     minutes: " . $cd->yacp_date->format('i') . ",
                     seconds: 0,
                     words: { //words displayed into the countdown
-                        days: 'day',
-                        hours: 'hour',
-                        minutes: 'minute',
-                        seconds: 'second',
-                        pluralLetter: 's'
+                        days: '" . $cd->wording_day . "',
+                        hours: '" . $cd->wording_hour . "',
+                        minutes: '" . $cd->wording_minute . "',
+                        seconds: '" . $cd->wording_second . "',
+                        pluralLetter: '" . $cd->wording_plural_letter . "'
                     },
                     plural: true, //use plurals
                     inline: " . $cd->is_inline . ",

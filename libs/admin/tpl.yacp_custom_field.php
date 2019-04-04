@@ -48,4 +48,58 @@
             <?php endforeach; ?>
         </select>
     </div>
+    
+
+    <!-- days
+hours
+minutes
+seconds
+plural_letter -->
+</div>
+
+<div class="yacp_settings">
+    <div class="form-block">    
+        <label for="yacp_days">
+            <?php echo $this->custom_fields['days']['name']; ?>
+        </label>
+        <input type="text" 
+                name="yacp_days" 
+                class="yacp_days" id="yacp_days" <?php if (empty($ctx['days'])) echo 'value="day"'; else echo 'value="' . $ctx['days'] . '"'; ?>>
+    </div>
+    <div class="form-block">    
+        <label for="yacp_hours">
+            <?php echo $this->custom_fields['hours']['name']; ?>
+        </label>
+        <input type="text" 
+                name="yacp_hours" 
+                class="yacp_hours" 
+                id="yacp_hours" <?php if (empty($ctx['hours'])) echo 'value="hour"'; else echo 'value="' . $ctx['hours'] . '"'; ?>>
+    </div>
+    <div class="form-block">    
+        <label for="yacp_minutes">
+            <?php echo $this->custom_fields['minutes']['name']; ?>
+        </label>
+        <input type="text" 
+                name="yacp_minutes" 
+                class="yacp_minutes" 
+                id="yacp_minutes" <?php if (empty($ctx['minutes'])) echo 'value="minute"'; else echo 'value="' . $ctx['minutes'] . '"'; ?>>
+    </div>
+    <div class="form-block">    
+        <label for="yacp_seconds">
+            <?php echo $this->custom_fields['seconds']['name']; ?>
+        </label>
+        <input type="text" 
+                name="yacp_seconds" 
+                class="yacp_seconds" 
+                id="yacp_seconds" <?php if (empty($ctx['seconds'])) echo 'value="second"'; else echo 'value="' . $ctx['seconds'] . '"'; ?>>
+    </div>
+    <div class="form-block">    
+        <label for="yacp_plural_letter">
+            <?php echo $this->custom_fields['plural_letter']['name']; ?>
+        </label>
+        <input type="text" 
+                name="yacp_plural_letter" 
+                class="yacp_plural_letter" 
+                id="yacp_plural_letter" <?php if (empty($ctx['plural_letter'])) echo 'value="s"'; else echo 'value="' . $ctx['plural_letter'] . '"'; ?>>
+    </div>
 </div>

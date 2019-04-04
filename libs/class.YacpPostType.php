@@ -80,6 +80,26 @@ class YacpPostType
                 'name' => __('Zero pad', 'yacp_textdomain'),
                 'key' => '_yacp_zero_pad'
             ),
+            'days' => array(
+                'name' => __('Wording (day)', 'yacp_textdomain'),
+                'key' => '_yacp_days'
+            ),
+            'hours' => array(
+                'name' => __('Wording (hour)', 'yacp_textdomain'),
+                'key' => '_yacp_hours'
+            ),
+            'minutes' => array(
+                'name' => __('Wording (minute)', 'yacp_textdomain'),
+                'key' => '_yacp_minutes'
+            ),
+            'seconds' => array(
+                'name' => __('Wording (second)', 'yacp_textdomain'),
+                'key' => '_yacp_seconds'
+            ),
+            'plural_letter' => array(
+                'name' => __('Plural Letter', 'yacp_textdomain'),
+                'key' => '_yacp_plural_letter'
+            ),
         );
 
         add_action('init', array($this, 'register_my_cpts_yacp_post'));
@@ -121,6 +141,11 @@ class YacpPostType
             'date' => get_post_meta($post->ID, $this->custom_fields['date']['key'], true),
             'utc' => get_post_meta($post->ID, $this->custom_fields['utc']['key'], true),
             'zero_pad' => get_post_meta($post->ID, $this->custom_fields['zero_pad']['key'], true),
+            'days' => get_post_meta($post->ID, $this->custom_fields['days']['key'], true),
+            'hours' => get_post_meta($post->ID, $this->custom_fields['hours']['key'], true),
+            'minutes' => get_post_meta($post->ID, $this->custom_fields['minutes']['key'], true),
+            'seconds' => get_post_meta($post->ID, $this->custom_fields['seconds']['key'], true),
+            'plural_letter' => get_post_meta($post->ID, $this->custom_fields['plural_letter']['key'], true),
         );
     }
 
@@ -270,18 +295,33 @@ class YacpPostType
         $date = $_POST['yacp_date'];
         $utc = $_POST['yacp_utc'];
         $zero_pad = $_POST['yacp_zero_pad'];
+        $days = $_POST['yacp_days'];
+        $hours = $_POST['yacp_hours'];
+        $minutes = $_POST['yacp_minutes'];
+        $seconds = $_POST['yacp_seconds'];
+        $plural_letter = $_POST['yacp_plural_letter'];
 
 //        var_dump($_POST);
         echo $theme;
         echo $date;
         echo $utc;
         echo $zero_pad;
+        echo $days;
+        echo $hours;
+        echo $minutes;
+        echo $seconds;
+        echo $plural_letter;
 //        exit();
 
         update_post_meta($post_id, $this->custom_fields['theme']['key'], $theme);
         update_post_meta($post_id, $this->custom_fields['date']['key'], $date);
         update_post_meta($post_id, $this->custom_fields['utc']['key'], $utc);
         update_post_meta($post_id, $this->custom_fields['zero_pad']['key'], $zero_pad);
+        update_post_meta($post_id, $this->custom_fields['days']['key'], $days);
+        update_post_meta($post_id, $this->custom_fields['hours']['key'], $hours);
+        update_post_meta($post_id, $this->custom_fields['minutes']['key'], $minutes);
+        update_post_meta($post_id, $this->custom_fields['seconds']['key'], $seconds);
+        update_post_meta($post_id, $this->custom_fields['plural_letter']['key'], $plural_letter);
     }
 
     /**
