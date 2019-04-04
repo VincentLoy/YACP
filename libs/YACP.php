@@ -94,7 +94,7 @@ class YACP
             $cd->wording_second = (!empty(get_post_meta($cd->ID, "_yacp_seconds", true))) ? get_post_meta($cd->ID, "_yacp_seconds", true) : 'second';
             $cd->wording_plural_letter = (!empty(get_post_meta($cd->ID, "_yacp_plural_letter", true))) ? get_post_meta($cd->ID, "_yacp_plural_letter", true) : 's';
 
-            $cd_start = var_dump($cd->yacp_date->format('Y')) . '<script>';
+            $cd_start = '<script>';
             $cd_code = "
             function startYACP() {
                 simplyCountdown('#yacp-" . $params['id'] . "', {
