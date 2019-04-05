@@ -7,7 +7,7 @@
 
 <div class="yacp_shortcode_preview">
     <input type="text"
-           onClick="this.setSelectionRange(0, this.value.length)"
+           id="yacp_shortcode_input"
            value="<?php echo htmlentities($shortcode, ENT_QUOTES); ?>"
            style="width: 100%;"
            readonly>

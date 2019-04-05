@@ -55,7 +55,7 @@ gulp.task(`build:scss`, function () {
 });
 
 
-gulp.task(`build:back:es6`, function () {
+gulp.task('build:back:es6', function () {
     return gulp.src(JS_BACK_FILES)
         .pipe(concat('yacp.backend.js'))
         .pipe(babel())
@@ -63,7 +63,7 @@ gulp.task(`build:back:es6`, function () {
         .pipe(gulp.dest('assets/dist'));
 });
 
-gulp.task(`build:front:es6`, function () {
+gulp.task('build:front:es6', function () {
     return pipeline(
         gulp.src(JS_FRONT_FILES),
         concat('yacp.front.js'),
@@ -96,10 +96,10 @@ gulp.task(`serve`, [`build:scss`, `build:front:es6`, 'build:back:es6'], function
         proxy: proxyServer,
     });
 
-    gulp.watch(`assets/dev/js/**/*.js`, ['build:front:es6', 'build:back:es6'])
+    gulp.watch(`./assets/dev/js/**/*.js`, ['build:front:es6', 'build:back:es6'])
         .on(`change`, reload);
 
-    gulp.watch(`assets/dev/styles/**/*`, ['build:scss'])
+    gulp.watch(`./assets/dev/styles/**/*`, ['build:scss'])
         .on(`change`, reload);
 
     gulp.watch('./**/*.php')
