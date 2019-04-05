@@ -4,8 +4,8 @@
 $color-black: #000000;
 $color-black-light: #171717;
 
-$color-blue-darken: #27343E;
-$color-blue-darken-light: #323B41;
+$color-blue-darken: #27343e;
+$color-blue-darken-light: #323b41;
 
 $color-blue: #2782fc;
 $color-blue-dark: #3470d8;
@@ -50,19 +50,34 @@ $color-orange: #e59500;
 }
 
 .yacp_settings {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  margin: 20px 0;
+  // display: flex;
+  // justify-content: space-around;
+  // align-items: center;
+  // margin: 20px 0;
+  overflow: hidden;
+
+  .form-block-container {
+    clear: both;
+  }
 
   .form-block {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+    // display: flex;
+    // align-items: center;
+    // justify-content: center;
+    // flex-direction: column;
+    margin-bottom: 15px;
+    float: left;
+    margin-right: 15px;
 
     label {
-      margin-bottom: 15px;
+      display: block;
+      text-align: center;
+      margin-bottom: 5px;
+    }
+
+    input[type=checkbox] {
+      margin: auto;
+      display: block;
     }
   }
 }
@@ -203,7 +218,7 @@ $color-orange: #e59500;
       color: white;
       font-size: 15px;
       font-weight: bold;
-      
+
       li {
         margin-bottom: 15px;
       }
