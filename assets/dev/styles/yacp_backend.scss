@@ -4,8 +4,8 @@
 $color-black: #000000;
 $color-black-light: #171717;
 
-$color-blue-darken: #2e4d64;
-$color-blue-darken-light: #355b79;
+$color-blue-darken: #27343E;
+$color-blue-darken-light: #323B41;
 
 $color-blue: #2782fc;
 $color-blue-dark: #3470d8;
@@ -107,28 +107,28 @@ $color-orange: #e59500;
       }
 
       &:nth-of-type(2) {
-        background: $color-blue-darken;
+        background: $color-blue-darken-light;
         position: relative;
 
         span {
           &:before {
             content: "";
             height: 7px;
-            width: 170px;
+            width: 235px;
             position: absolute;
             background: white;
             z-index: 99;
-            left: -168px;
+            left: -235px;
           }
 
           &:after {
             content: "";
             height: 7px;
-            width: 170px;
+            width: 235px;
             position: absolute;
             z-index: 99;
             background: white;
-            right: -168px;
+            right: -235px;
           }
         }
 
@@ -136,7 +136,7 @@ $color-orange: #e59500;
           content: "";
           width: 50px;
           height: 120%;
-          background: $color-blue-darken;
+          background: $color-blue-darken-light;
           z-index: 0;
           position: absolute;
           left: -20px;
@@ -147,7 +147,7 @@ $color-orange: #e59500;
           content: "";
           width: 50px;
           height: 120%;
-          background: $color-blue-darken;
+          background: $color-blue-darken-light;
           z-index: 0;
           position: absolute;
           right: -28px;
