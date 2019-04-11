@@ -1,0 +1,35 @@
+/**
+* Project: YACP
+* Date: 4/11/19
+* Author: Vincent Loy <vincent.loy1@gmail.com>
+*
+* LICENSE: MIT
+*/
+
+.simply-countdown-simple-black {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  .simply-section div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: black;
+  }
+
+  .simply-amount {
+    font-weight: bold;
+    font-size: 50px;
+    line-height: 0.8;
+
+    @media screen and (max-width: 450px) {
+      font-size: 30px;
+    }
+  }
+
+  .simply-word {
+    font-style: italic;
+  }
+}

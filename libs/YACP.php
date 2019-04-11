@@ -25,12 +25,30 @@ class YACP
         $this->load_shortcode();
 
         // See var available_themes in class.YacpPostType.php, they must be sync
-        $this->theme_classes = array(
-            'default' => 'simply-countdown',
-            'losange' => 'simply-countdown-losange',
-            'inline' => 'simply-countdown-inline',
-            'custom' => 'simply-countdown-custom',
+        $this->themes = array(
+            'default' => array(
+                'class' => 'simply-countdown',
+            ),
+            'losange' => array(
+                'class' => 'simply-countdown-losange',
+            ),
+            'inline' => array(
+                'class' => 'simply-countdown-inline',
+            ),
+            'simple-white' => array(
+                'class' => 'simply-countdown-simple-white',
+                'css' => '/assets/dist/themes/yacp-simple-white.css',
+            ),
+            'simple-black' => array(
+                'class' => 'simply-countdown-simple-black',
+                'css' => '/assets/dist/themes/yacp-simple-black.css',
+            ),
+            'custom' => array(
+                'class' => 'simply-countdown-custom',
+            ),
         );
+
+        $this->selected_theme = null;
     }
 
     public function init()
@@ -52,6 +70,19 @@ class YACP
 
         wp_register_style('yacp_css', plugin_dir_url(__DIR__) . '/assets/dist/yacp_frontend.css', false, '');
         wp_enqueue_style('yacp_css');
+    }
+
+    /**
+     * Load a CSS file that contain que YACP custom theme for countdown
+     * Make sure $this->selected_theme is set before
+     */
+    public function enqueue_yacp_custom_theme()
+    {
+        if (!empty($this->selected_theme)) {
+            $name = 'yacp_custom_theme--' . $this->selected_theme['class'];
+            wp_register_style($name, plugin_dir_url(__DIR__) . $this->selected_theme['css'], false, '');
+            wp_enqueue_style($name);
+        }
     }
 
     public function admin_enqueue_styles()
@@ -140,6 +171,7 @@ class YACP
             $cd->yacp_zero_pad = !empty(get_post_meta($cd->ID, "_yacp_zero_pad", true)) ? 1 : 0;
             $cd->yacp_theme = get_post_meta($cd->ID, "_yacp_theme", true);
             $cd->is_inline = ($cd->yacp_theme == 'inline') ? 1 : 0;
+            $this->selected_theme = $this->themes[$cd->yacp_theme];
 
             $cd->wording_day = (!empty(get_post_meta($cd->ID, "_yacp_days", true))) ? get_post_meta($cd->ID, "_yacp_days", true) : 'day';
             $cd->wording_hour = (!empty(get_post_meta($cd->ID, "_yacp_hours", true))) ? get_post_meta($cd->ID, "_yacp_hours", true) : 'hour';
@@ -147,7 +179,12 @@ class YACP
             $cd->wording_second = (!empty(get_post_meta($cd->ID, "_yacp_seconds", true))) ? get_post_meta($cd->ID, "_yacp_seconds", true) : 'second';
             $cd->wording_plural_letter = (!empty(get_post_meta($cd->ID, "_yacp_plural_letter", true))) ? get_post_meta($cd->ID, "_yacp_plural_letter", true) : 's';
 
-            return '<div id="yacp-' . $uid . '" class="' . $this->theme_classes[$cd->yacp_theme] . '"></div>' . $this->generate_javascript($cd, $uid);
+            if (array_key_exists('css', $this->themes[$cd->yacp_theme])) {
+                //enqueue_yacp_custom_theme
+                add_action('wp_footer', array($this, 'enqueue_yacp_custom_theme'));
+            }
+
+            return '<div id="yacp-' . $uid . '" class="' . $this->selected_theme['class'] . '"></div>' . $this->generate_javascript($cd, $uid);
         } else {
 
             return "Can't display the countdown...";

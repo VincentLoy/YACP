@@ -61,6 +61,8 @@ class YacpPostType
             'default' => __('Default Theme', 'yacp_textdomain'),
             'losange' => __('Losange Theme', 'yacp_textdomain'),
             'inline' => __('Inline Theme', 'yacp_textdomain'),
+            'simple-white' => __('Simple White Theme', 'yacp_textdomain'),
+            'simple-black' => __('Simple Black Theme', 'yacp_textdomain'),
             'custom' => __('My Custom CSS', 'yacp_textdomain'),
         );
 
@@ -301,7 +303,6 @@ class YacpPostType
         $seconds = $_POST['yacp_seconds'];
         $plural_letter = $_POST['yacp_plural_letter'];
 
-//        var_dump($_POST);
         echo $theme;
         echo $date;
         echo $utc;
@@ -311,7 +312,6 @@ class YacpPostType
         echo $minutes;
         echo $seconds;
         echo $plural_letter;
-//        exit();
 
         update_post_meta($post_id, $this->custom_fields['theme']['key'], $theme);
         update_post_meta($post_id, $this->custom_fields['date']['key'], $date);

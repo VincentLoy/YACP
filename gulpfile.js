@@ -28,6 +28,27 @@ const JS_FRONT_FILES = [
     // custom
 ];
 
+const YACP_THEMES = [
+    'assets/dev/styles/themes/yacp-simple-white.scss',
+    'assets/dev/styles/themes/yacp-simple-black.scss',
+];
+
+gulp.task('build:themes', function () {
+   Array.prototype.forEach.call(YACP_THEMES, (theme) => {
+       gulp.src(theme)
+           .pipe(sass({
+               outputStyle: `nested`,
+               precision: 10
+           }).on(`error`, sass.logError))
+           .pipe(browserSpecificPrefixer({
+               browsers: [`last 2 versions`]
+           }))
+           .pipe(cssCompressor({
+               restructure: false,
+           }))
+           .pipe(gulp.dest(`assets/dist/themes`));
+   });
+});
 
 gulp.task(`build:scss`, function () {
     gulp.src(`assets/dev/styles/yacp_backend.scss`)
@@ -87,7 +108,7 @@ gulp.task(`build`, [
 ]);
 
 
-gulp.task(`serve`, [`build:scss`, `build:front:es6`, 'build:back:es6'], function () {
+gulp.task(`serve`, [`build:scss`, `build:themes`, `build:front:es6`, 'build:back:es6'], function () {
     browserSync({
         notify: true,
         port: 9000,
@@ -99,7 +120,7 @@ gulp.task(`serve`, [`build:scss`, `build:front:es6`, 'build:back:es6'], function
     gulp.watch(`./assets/dev/js/**/*.js`, ['build:front:es6', 'build:back:es6'])
         .on(`change`, reload);
 
-    gulp.watch(`./assets/dev/styles/**/*`, ['build:scss'])
+    gulp.watch(`./assets/dev/styles/**/*`, ['build:scss', 'build:themes'])
         .on(`change`, reload);
 
     gulp.watch('./**/*.php')
