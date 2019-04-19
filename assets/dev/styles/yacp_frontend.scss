@@ -1,6 +1,16 @@
 @import "../../../node_modules/simplycountdown.js/css/scss/simplyCountdown.theme.default.scss";
 @import "../../../node_modules/simplycountdown.js/css/scss/simplyCountdown.theme.losange.scss";
 
-.simply-countdown {
-  margin: auto;
+$spacing: 20px;
+
+.yacp-countdown {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.section-text {
+  .yacp-countdown {
+    margin-top: $spacing;
+    margin-bottom: $spacing;
+  }
 }

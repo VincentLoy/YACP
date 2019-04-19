@@ -2,18 +2,18 @@
 
 'use strict';
 
-let gulp = require(`gulp`),
-    sass = require(`gulp-sass`),
-    babel = require(`gulp-babel`),
-    browserSpecificPrefixer = require(`gulp-autoprefixer`),
+let gulp = require('gulp'),
+    sass = require('gulp-sass'),
+    babel = require('gulp-babel'),
+    browserSpecificPrefixer = require('gulp-autoprefixer'),
     cssCompressor = require('gulp-csso'),
-    jsCompressor = require(`gulp-uglify`),
-    browserSync = require(`browser-sync`),
+    jsCompressor = require('gulp-uglify'),
+    browserSync = require('browser-sync'),
     concat = require('gulp-concat'),
     reload = browserSync.reload,
-    proxyServer = `wordpress.local`,
+    proxyServer = 'wordpress.local',
     pipeline = require('readable-stream').pipeline,
-    browserChoice = `default`;
+    browserChoice = 'default';
 
 const JS_BACK_FILES = [
     // libs
@@ -37,42 +37,42 @@ gulp.task('build:themes', function () {
    Array.prototype.forEach.call(YACP_THEMES, (theme) => {
        gulp.src(theme)
            .pipe(sass({
-               outputStyle: `nested`,
+               outputStyle: 'nested',
                precision: 10
-           }).on(`error`, sass.logError))
+           }).on('error', sass.logError))
            .pipe(browserSpecificPrefixer({
-               browsers: [`last 2 versions`]
+               browsers: ['last 2 versions']
            }))
            .pipe(cssCompressor({
                restructure: false,
            }))
-           .pipe(gulp.dest(`assets/dist/themes`));
+           .pipe(gulp.dest('assets/dist/themes'));
    });
 });
 
-gulp.task(`build:scss`, function () {
-    gulp.src(`assets/dev/styles/yacp_backend.scss`)
+gulp.task('build:scss', function () {
+    gulp.src('assets/dev/styles/yacp_backend.scss')
         .pipe(sass({
-            outputStyle: `nested`,
+            outputStyle: 'nested',
             precision: 10
-        }).on(`error`, sass.logError))
+        }).on('error', sass.logError))
         .pipe(browserSpecificPrefixer({
-            browsers: [`last 2 versions`]
+            browsers: ['last 2 versions']
         }))
         .pipe(cssCompressor({
             restructure: false,
         }))
-        .pipe(gulp.dest(`assets/dist`));
+        .pipe(gulp.dest('assets/dist'));
 
-    return gulp.src(`assets/dev/styles/yacp_frontend.scss`)
+    return gulp.src('assets/dev/styles/yacp_frontend.scss')
         .pipe(sass({
-            outputStyle: `compressed`,
+            outputStyle: 'compressed',
             precision: 10
-        }).on(`error`, sass.logError))
+        }).on('error', sass.logError))
         .pipe(cssCompressor({
             restructure: false,
         }))
-        .pipe(gulp.dest(`assets/dist`));
+        .pipe(gulp.dest('assets/dist'));
 });
 
 
@@ -90,7 +90,7 @@ gulp.task('build:front:es6', function () {
         concat('yacp.front.js'),
         babel(),
         jsCompressor(),
-        gulp.dest(`assets/dist`)
+        gulp.dest('assets/dist')
     );
 });
 
@@ -101,14 +101,14 @@ gulp.task('build:front:es6', function () {
  * Meant for building a production version of your project, this task simply invokes
  * other pre-defined tasks.
  */
-gulp.task(`build`, [
-    `build:scss`,
-    `build:front:es6`,
-    `build:back:es6`
+gulp.task('build', [
+    'build:scss',
+    'build:front:es6',
+    'build:back:es6'
 ]);
 
 
-gulp.task(`serve`, [`build:scss`, `build:themes`, `build:front:es6`, 'build:back:es6'], function () {
+gulp.task('serve', ['build:scss', 'build:themes', 'build:front:es6', 'build:back:es6'], function () {
     browserSync({
         notify: true,
         port: 9000,
@@ -117,12 +117,14 @@ gulp.task(`serve`, [`build:scss`, `build:themes`, `build:front:es6`, 'build:back
         proxy: proxyServer,
     });
 
-    gulp.watch(`./assets/dev/js/**/*.js`, ['build:front:es6', 'build:back:es6'])
-        .on(`change`, reload);
+    gulp.watch('./assets/dev/js/**/*.js', ['build:front:es6', 'build:back:es6'])
+        .on('change', reload);
 
-    gulp.watch(`./assets/dev/styles/**/*`, ['build:scss', 'build:themes'])
-        .on(`change`, reload);
+    gulp.watch('./assets/dev/styles/**/*', ['build:scss', 'build:themes'])
+        .on('change', reload);
 
     gulp.watch('./**/*.php')
         .on('change', reload);
 });
+
+gulp.task('default', ['serve']);
