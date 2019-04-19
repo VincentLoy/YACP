@@ -108,6 +108,39 @@ class YacpPostType
         add_action('init', array($this, 'register_my_cpts_yacp_post'));
         add_action('add_meta_boxes', array($this, 'custom_meta_boxes'));
         add_action('save_post', array($this, 'yacp_save_meta_box_data'));
+        add_filter('manage_yacp_post_posts_columns', array($this, 'set_custom_edit_yacp_post_columns'));
+        add_action('manage_yacp_post_posts_custom_column', array($this, 'custom_yacp_post_column'), 10, 2);
+    }
+
+    /**
+     * Set custom columns for YACP posts
+     * @param $columns
+     * @return mixed
+     */
+    public function set_custom_edit_yacp_post_columns($columns)
+    {
+        $columns['yacp_date'] = __('End Date', 'yacp_textdomain');
+        $columns['yacp_theme'] = __('Theme', 'yacp_textdomain');
+
+        return $columns;
+    }
+
+    /**
+     * Fill the custom columns with countdowns data
+     * @param $column
+     * @param $post_id
+     */
+    public function custom_yacp_post_column($column, $post_id)
+    {
+        switch ($column) {
+            case 'yacp_date' :
+                $terms = get_post_meta($post_id, '_yacp_date', true);
+                echo '<p class="mod-date">' . date('m/d/Y @ g:i a', strtotime($terms)) . '</p>';
+                break;
+            case 'yacp_theme' :
+                echo get_post_meta($post_id, '_yacp_theme', true);
+                break;
+        }
     }
 
     /**
@@ -119,12 +152,13 @@ class YacpPostType
     {
         global $pagenow;
 
-        if ($new_edit == 'edit')
+        if ($new_edit == 'edit') {
             return in_array($pagenow, array('post.php',));
-        elseif ($new_edit == "new") //check for new post page
+        } elseif ($new_edit == "new") { //check for new post page
             return in_array($pagenow, array('post-new.php'));
-        else //check for either new or edit
+        } else { //check for either new or edit
             return in_array($pagenow, array('post.php', 'post-new.php'));
+        }
     }
 
     /**
