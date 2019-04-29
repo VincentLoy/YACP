@@ -17,6 +17,9 @@ $color-white: #ffffff;
 
 $color-orange: #e59500;
 
+$bp-large: 1513px;
+$bp-small: 1230px;
+
 .admin-bar.post-type-yacp_post {
   #normal-sortables {
     //display: none;
@@ -96,18 +99,26 @@ $color-orange: #e59500;
   }
 
   .tutorial {
-    height: 325px;
     max-width: 100%;
     font-size: 18px;
     text-align: justify;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
+
+    @media screen and (min-width: $bp-small) {
+      height: 325px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
 
     .step {
       flex: 1;
       height: 100%;
+      padding: 10px 0;
+
+      @media screen and (min-width: $bp-small) {
+        padding: 0;
+      }
 
       p {
         font-size: 16px;
@@ -127,59 +138,69 @@ $color-orange: #e59500;
 
         span {
           &:before {
-            content: "";
-            height: 7px;
-            width: 235px;
-            position: absolute;
-            background: white;
-            z-index: 99;
-            left: -235px;
+            @media screen and (min-width: $bp-large) {
+              content: "";
+              height: 7px;
+              width: 235px;
+              position: absolute;
+              background: white;
+              z-index: 99;
+              left: -235px;
+            }
           }
 
           &:after {
-            content: "";
-            height: 7px;
-            width: 235px;
-            position: absolute;
-            z-index: 99;
-            background: white;
-            right: -235px;
+            @media screen and (min-width: $bp-large) {
+              content: "";
+              height: 7px;
+              width: 235px;
+              position: absolute;
+              z-index: 99;
+              background: white;
+              right: -235px;
+            }
           }
         }
 
         &:before {
-          content: "";
-          width: 50px;
-          height: 120%;
-          background: $color-blue-darken-light;
-          z-index: 0;
-          position: absolute;
-          left: -20px;
-          transform: rotate(-8deg) translateY(-20px);
+          @media screen and (min-width: $bp-large) {
+            content: "";
+            width: 50px;
+            height: 120%;
+            background: $color-blue-darken-light;
+            z-index: 0;
+            position: absolute;
+            left: -20px;
+            transform: rotate(-8deg) translateY(-20px);
+          }
         }
 
         &:after {
-          content: "";
-          width: 50px;
-          height: 120%;
-          background: $color-blue-darken-light;
-          z-index: 0;
-          position: absolute;
-          right: -28px;
-          top: 0;
-          transform: rotate(-8deg) translateY(-20px);
+          @media screen and (min-width: $bp-large) {
+            content: "";
+            width: 50px;
+            height: 120%;
+            background: $color-blue-darken-light;
+            z-index: 0;
+            position: absolute;
+            right: -28px;
+            top: 0;
+            transform: rotate(-8deg) translateY(-20px);
+          }
         }
       }
 
       &:first-of-type {
         span {
           &:after {
-            content: "";
-            z-index: 99;
-            width: 170px;
-            position: absolute;
-            right: -168px;
-            border-top: 7px white dashed;
+            @media screen and (min-width: $bp-large) {
+              content: "";
+              z-index: 99;
+              width: 170px;
+              position: absolute;
+              right: -168px;
+              border-top: 7px white dashed;
+            }
           }
         }
       }
@@ -187,12 +208,14 @@ $color-orange: #e59500;
       &:last-of-type {
         span {
           &:before {
-            content: "";
-            width: 170px;
-            z-index: 99;
-            position: absolute;
-            border-top: 7px white dashed;
-            left: -168px;
+            @media screen and (min-width: $bp-large) {
+              content: "";
+              width: 170px;
+              z-index: 99;
+              position: absolute;
+              border-top: 7px white dashed;
+              left: -168px;
+            }
           }
         }
       }
@@ -214,13 +237,21 @@ $color-orange: #e59500;
     }
 
     .tuto-ol {
-      padding: 0 50px 0 40px;
+      padding: 0 20px;
       color: white;
       font-size: 15px;
       font-weight: bold;
 
+      @media screen and (min-width: $bp-large) {
+        padding: 0 50px 0 40px;
+      }
+
       li {
-        margin-bottom: 15px;
+        margin-bottom: 8px;
+
+        @media screen and (min-width: $bp-large) {
+          margin-bottom: 15px;
+        }
 
         a {
           color: $color-white;
