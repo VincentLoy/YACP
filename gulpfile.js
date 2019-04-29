@@ -28,6 +28,13 @@ const JS_FRONT_FILES = [
     // custom
 ];
 
+const JS_DEMO_FILES = [
+    // libs
+    './node_modules/basiclightbox/dist/basicLightbox.min.js',
+    './demo/js/app.js',
+    // custom
+];
+
 const YACP_THEMES = [
     'assets/dev/styles/themes/yacp-simple-white.scss',
     'assets/dev/styles/themes/yacp-simple-black.scss',
@@ -106,6 +113,18 @@ gulp.task('build:front:es6', function () {
     );
 });
 
+gulp.task('build:demo:es6', function () {
+    return pipeline(
+        gulp.src(JS_DEMO_FILES),
+        concat('app.min.js'),
+        babel({
+            presets: ['@babel/env']
+        }),
+        jsCompressor(),
+        gulp.dest('demo/js')
+    );
+});
+
 
 /**
  * BUILD
@@ -139,7 +158,7 @@ gulp.task('serve', ['build:scss', 'build:themes', 'build:front:es6', 'build:back
         .on('change', reload);
 });
 
-gulp.task('serve:demo', ['build:demo:scss'], function () {
+gulp.task('serve:demo', ['build:demo:scss', 'build:demo:es6'], function () {
     browserSync({
         notify: true,
         port: 9000,
@@ -151,6 +170,8 @@ gulp.task('serve:demo', ['build:demo:scss'], function () {
     });
 
     gulp.watch('./index.html').on('change', reload);
+    gulp.watch('./demo/js/app.js', ['build:demo:es6'])
+        .on('change', reload);
     gulp.watch('./demo/styles/scss/**/*', ['build:demo:scss'])
         .on('change', reload);
 });

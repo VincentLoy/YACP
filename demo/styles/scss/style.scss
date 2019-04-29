@@ -4,9 +4,10 @@
 * Author : Vincent Loy <vincent.loy1@gmail.com>
 * Copyright (c) Loy Vincent
 */
-@import url('https://fonts.googleapis.com/css?family=Roboto:100,400,500,900');
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,300i,400,500,900');
 @import 'includes/reset';
 @import 'includes/flaticon';
+@import '../../../node_modules/basiclightbox/dist/basicLightbox.min.css';
 
 $color-black: #000000;
 $color-black-light: #171717;
@@ -19,6 +20,12 @@ $color-gray-light: #e9e9e9;
 $color-white: #ffffff;
 $color-orange: #e59500;
 
+$spacing: 1em;
+$spacing-b: 2em;
+$spacing-s: 0.5em;
+
+$bp: 550px;
+
 body {
   background: $color-blue-darken-light;
   color: $color-white;
@@ -26,44 +33,64 @@ body {
 }
 
 header {
-  padding: 120px 0;
+  padding: ($spacing * 3) 0;
   text-align: center;
 
+  @media screen and (min-width: $bp) {
+    padding: ($spacing * 7) 0;
+  }
+
   h1 {
-    font-size: 140px;
+    font-size: 90px;
     font-weight: 900;
     letter-spacing: 5px;
+    text-shadow: 6px 6px 0 $color-orange;
+
+    @media screen and (min-width: $bp) {
+      font-size: 200px;
+    }
   }
 
   h2 {
     font-style: italic;
-    font-weight: bold;
-    font-size: 40px;
-    letter-spacing: 2px;
-    margin: 10px 0;
+    font-weight: 300;
+    font-size: 25px;
+    margin: ($spacing-s / 2) 0;
+
+    @media screen and (min-width: $bp) {
+      font-size: 39px;
+    }
   }
 
   h3 {
-    font-size: 28px;
-    font-weight: 100;
-    font-style: italic;
+    font-size: 18px;
+    font-weight: 400;
+
+    @media screen and (min-width: $bp) {
+      font-weight: 100;
+      font-size: 30px;
+    }
   }
 }
 
 .yacp-orange-section {
   background: $color-orange;
-  padding: 40px 0;
+  padding: ($spacing * 3) 0;
 
   .yacp-wording-big {
     text-align: center;
-    font-size: 25px;
+    font-size: 16px;
     font-weight: bold;
     font-style: italic;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
+
+    @media screen and (min-width: $bp) {
+      font-size: 25px;
+    }
 
     span {
       display: block;
-      margin: 7px 0;
+      margin: 0 0 7px 0;
     }
   }
 
@@ -97,11 +124,7 @@ header {
 
 .yacp-features-section {
   color: white;
-  padding: 70px 0;
-
-  ul {
-
-  }
+  padding: 70px 0 40px 0;
 
   .yacp-feature {
     text-align: center;
@@ -132,13 +155,18 @@ header {
 }
 
 .-examples {
-  padding-top: 40px;
+  padding-top: ($spacing * 3);
 
   .-title {
     text-align: center;
-    font-size: 40px;
-    margin: 10px 0 50px 0;
-    font-weight: 100;
+    font-size: 25px;
+    margin: 0 0 ($spacing) 0;
+    font-weight: 400;
+
+    @media screen and (min-width: $bp) {
+      font-weight: 100;
+      font-size: 40px;
+    }
   }
 
   figure {
@@ -147,6 +175,10 @@ header {
 
   img {
     width: 100%;
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 
   figcaption.figure-caption {
@@ -154,9 +186,31 @@ header {
   }
 }
 
+.custom-theme {
+  text-align: center;
+  padding-top: $spacing * 3;
+
+  h1 {
+    font-size: 25px;
+    margin: 0 0 $spacing-s 0;
+    font-weight: 400;
+
+    @media screen and (min-width: $bp) {
+      font-weight: 100;
+      font-size: 40px;
+    }
+  }
+
+  p {
+    margin-bottom: 50px;
+    font-size: 19px;
+    line-height: 1.2;
+  }
+}
+
 footer {
   text-align: center;
-  padding: 50px 0;
+  padding: ($spacing * 3) $spacing-s;
 
   .yacp-btn {
     background: $color-orange;

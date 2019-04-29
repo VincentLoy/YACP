@@ -11,7 +11,7 @@ namespace YACP;
 
 /**
  * The Core of this custom post type was generated thanks to the CPT UI plugin. Then He was
- * Customized.
+ * customized to add all needed features.
  * Class YacpPostType
  * @package YACP
  */
