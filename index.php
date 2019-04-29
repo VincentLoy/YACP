@@ -6,8 +6,8 @@
 
 /*
 Plugin Name: Yet Another Countdown Plugin
-Plugin URI: https: //github.com/VincentLoy/YACP
-Description: Display Countdown Where you want on your Wordpress Website !
+Plugin URI: https://vincentloy.github.io/YACP/
+Description: YACP allow you to add a countdown to any Wordpress post and page. It's easy to use, open source, and developer friendly
 Author: Vincent Loy
 Version: 0.1.1
 Author URI: https://vincent-loy.fr/
