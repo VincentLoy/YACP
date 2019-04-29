@@ -75,6 +75,18 @@ gulp.task('build:scss', function () {
         .pipe(gulp.dest('assets/dist'));
 });
 
+gulp.task('build:demo:scss', function () {
+    return gulp.src('./demo/styles/scss/style.scss')
+        .pipe(sass({
+            outputStyle: 'compressed',
+            precision: 10
+        }).on('error', sass.logError))
+        .pipe(cssCompressor({
+            restructure: false,
+        }))
+        .pipe(gulp.dest('demo/styles'));
+});
+
 
 gulp.task('build:back:es6', function () {
     return gulp.src(JS_BACK_FILES)
@@ -124,6 +136,22 @@ gulp.task('serve', ['build:scss', 'build:themes', 'build:front:es6', 'build:back
         .on('change', reload);
 
     gulp.watch('./**/*.php')
+        .on('change', reload);
+});
+
+gulp.task('serve:demo', ['build:demo:scss'], function () {
+    browserSync({
+        notify: true,
+        port: 9000,
+        reloadDelay: 100,
+        browser: browserChoice,
+        server: {
+            baseDir: './'
+        }
+    });
+
+    gulp.watch('./index.html').on('change', reload);
+    gulp.watch('./demo/styles/scss/**/*', ['build:demo:scss'])
         .on('change', reload);
 });
 
