@@ -20,6 +20,10 @@ $color-gray-light: #e9e9e9;
 $color-white: #ffffff;
 $color-orange: #e59500;
 
+$spacing: 1em;
+$spacing-b: 2em;
+$spacing-s: 0.5em;
+
 $bp: 550px;
 
 body {
@@ -29,11 +33,11 @@ body {
 }
 
 header {
-  padding: 60px 0;
+  padding: ($spacing * 3) 0;
   text-align: center;
 
   @media screen and (min-width: $bp) {
-    padding: 120px 0;
+    padding: ($spacing * 7) 0;
   }
 
   h1 {
@@ -51,7 +55,7 @@ header {
     font-style: italic;
     font-weight: 300;
     font-size: 25px;
-    margin: 10px 0;
+    margin: ($spacing-s / 2) 0;
 
     @media screen and (min-width: $bp) {
       font-size: 39px;
@@ -71,7 +75,7 @@ header {
 
 .yacp-orange-section {
   background: $color-orange;
-  padding: 40px 0;
+  padding: ($spacing * 3) 0;
 
   .yacp-wording-big {
     text-align: center;
@@ -151,12 +155,12 @@ header {
 }
 
 .-examples {
-  padding-top: 40px;
+  padding-top: ($spacing * 3);
 
   .-title {
     text-align: center;
     font-size: 25px;
-    margin: 10px 0 50px 0;
+    margin: 0 0 ($spacing) 0;
     font-weight: 400;
 
     @media screen and (min-width: $bp) {
@@ -171,6 +175,10 @@ header {
 
   img {
     width: 100%;
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 
   figcaption.figure-caption {
@@ -178,9 +186,31 @@ header {
   }
 }
 
+.custom-theme {
+  text-align: center;
+  padding-top: $spacing * 3;
+
+  h1 {
+    font-size: 25px;
+    margin: 0 0 $spacing-s 0;
+    font-weight: 400;
+
+    @media screen and (min-width: $bp) {
+      font-weight: 100;
+      font-size: 40px;
+    }
+  }
+
+  p {
+    margin-bottom: 50px;
+    font-size: 19px;
+    line-height: 1.2;
+  }
+}
+
 footer {
   text-align: center;
-  padding: 50px 20px;
+  padding: ($spacing * 3) $spacing-s;
 
   .yacp-btn {
     background: $color-orange;
