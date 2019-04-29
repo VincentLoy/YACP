@@ -28,6 +28,14 @@
                 <?php if (!empty($ctx['zero_pad'])) echo 'checked'; ?> class="yacp_zero_pad">
         </div>
 
+        <div class="form-block count_up">
+            <label for="yacp_count_up">
+                <?php echo $this->custom_fields['count_up']['name']; ?>
+            </label>
+            <input type="checkbox" name="yacp_count_up" id="yacp_count_up"
+                <?php if (!empty($ctx['count_up'])) echo 'checked'; ?> class="yacp_zero_pad">
+        </div>
+
         <div class="form-block">
             <label for="yacp_theme">
                 <?php echo $this->custom_fields['theme']['name']; ?>

@@ -83,6 +83,10 @@ class YacpPostType
                 'name' => __('Zero pad', 'yacp_textdomain'),
                 'key' => '_yacp_zero_pad'
             ),
+            'count_up' => array(
+                'name' => __('Count up', 'yacp_textdomain'),
+                'key' => '_yacp_count_up'
+            ),
             'days' => array(
                 'name' => __('Wording (day)', 'yacp_textdomain'),
                 'key' => '_yacp_days'
@@ -178,6 +182,7 @@ class YacpPostType
             'date' => get_post_meta($post->ID, $this->custom_fields['date']['key'], true),
             'utc' => get_post_meta($post->ID, $this->custom_fields['utc']['key'], true),
             'zero_pad' => get_post_meta($post->ID, $this->custom_fields['zero_pad']['key'], true),
+            'count_up' => get_post_meta($post->ID, $this->custom_fields['count_up']['key'], true),
             'days' => get_post_meta($post->ID, $this->custom_fields['days']['key'], true),
             'hours' => get_post_meta($post->ID, $this->custom_fields['hours']['key'], true),
             'minutes' => get_post_meta($post->ID, $this->custom_fields['minutes']['key'], true),
@@ -331,6 +336,7 @@ class YacpPostType
         $date = $_POST['yacp_date'];
         $utc = $_POST['yacp_utc'];
         $zero_pad = $_POST['yacp_zero_pad'];
+        $count_up = $_POST['yacp_count_up'];
         $days = $_POST['yacp_days'];
         $hours = $_POST['yacp_hours'];
         $minutes = $_POST['yacp_minutes'];
@@ -341,6 +347,7 @@ class YacpPostType
         echo $date;
         echo $utc;
         echo $zero_pad;
+        echo $count_up;
         echo $days;
         echo $hours;
         echo $minutes;
@@ -351,6 +358,7 @@ class YacpPostType
         update_post_meta($post_id, $this->custom_fields['date']['key'], $date);
         update_post_meta($post_id, $this->custom_fields['utc']['key'], $utc);
         update_post_meta($post_id, $this->custom_fields['zero_pad']['key'], $zero_pad);
+        update_post_meta($post_id, $this->custom_fields['count_up']['key'], $count_up);
         update_post_meta($post_id, $this->custom_fields['days']['key'], $days);
         update_post_meta($post_id, $this->custom_fields['hours']['key'], $hours);
         update_post_meta($post_id, $this->custom_fields['minutes']['key'], $minutes);

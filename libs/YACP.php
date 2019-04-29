@@ -91,7 +91,15 @@ class YACP
     {
         $cd_start_tag = '<script>';
         $cd_code = "
-            function startYACP() {
+            function ready(fn) {
+                if (document.attachEvent ? document.readyState === 'complete' : document.readyState !== 'loading'){
+                    fn();
+                } else {
+                    document.addEventListener('DOMContentLoaded', fn);
+                }
+            }
+
+            ready(function () {
                 simplyCountdown('#yacp-" . $uid . "', {
                     year: " . $cd->yacp_date->format('Y') . ",
                     month: " . $cd->yacp_date->format('m') . ",
@@ -119,19 +127,10 @@ class YACP
                     sectionClass: 'simply-section', //section css class
                     amountClass: 'simply-amount', // amount css class
                     wordClass: 'simply-word', // word css class
-                    zeroPad: " . $cd->yacp_zero_pad . "
+                    zeroPad: " . $cd->yacp_zero_pad . ",
+                    countUp: " . $cd->yacp_count_up . "
                 });
-            };
-
-            function ready(fn) {
-                if (document.attachEvent ? document.readyState === 'complete' : document.readyState !== 'loading'){
-                    fn();
-                } else {
-                    document.addEventListener('DOMContentLoaded', fn);
-                }
-            }
-
-            ready(startYACP);
+            });
             ";
         $cd_end_tag = '</script>';
 
@@ -154,6 +153,7 @@ class YACP
             );
             $cd->yacp_utc = !empty(get_post_meta($cd->ID, "_yacp_utc", true)) ? 1 : 0;
             $cd->yacp_zero_pad = !empty(get_post_meta($cd->ID, "_yacp_zero_pad", true)) ? 1 : 0;
+            $cd->yacp_count_up = !empty(get_post_meta($cd->ID, "_yacp_count_up", true)) ? 1 : 0;
             $cd->yacp_theme = get_post_meta($cd->ID, "_yacp_theme", true);
             $cd->is_inline = ($cd->yacp_theme == 'inline') ? 1 : 0;
 
