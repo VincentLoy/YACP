@@ -221,36 +221,13 @@ $color-orange: #e59500;
 
       li {
         margin-bottom: 15px;
+
+        a {
+          color: $color-white;
+          font-weight: bold;
+          font-size: 16px;
+        }
       }
-    }
-  }
-
-  .yacp_donate_btn {
-    display: table;
-    margin: auto;
-    padding: 10px 15px;
-    background: $color-blue-darken;
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-    border-radius: 5px;
-    transition: 0.2s ease all;
-
-    &:hover {
-      background: $color-blue-darken-light;
-    }
-  }
-
-  .qr-container {
-    background: white;
-    border-radius: 5px;
-    padding: 5px;
-    display: table;
-    margin: 15px auto auto;
-    width: 100px;
-
-    img {
-      width: 100%;
     }
   }
 

@@ -19,7 +19,7 @@ class YacpPostType
 {
 
     /**
-     * This is where all needed vars are instancied.
+     * This is where all needed vars are instantiated.
      * Some needed actions are listed here too
      * YacpPostType constructor.
      */
@@ -275,11 +275,12 @@ class YacpPostType
 
     public function yacp_donation($post)
     {
-        echo '<img src="https://via.placeholder.com/255x305"/>';
+        include 'admin/donation_box.php';
     }
 
     public function yacp_add_shortcode_preview($post)
     {
+        // var used in the included template
         $shortcode = $this->get_shortcode_preview($post);
         include 'admin/tpl.yacp_shortcode_preview.php';
     }
@@ -295,6 +296,7 @@ class YacpPostType
         // Add a nonce field so we can check for it later.
         wp_nonce_field('yacp_save_meta_box_data', 'yacp_meta_box_nonce');
 
+        // var used in the included template
         $ctx = $this->get_template_context($post);
         include 'admin/tpl.yacp_custom_field.php';
     }
