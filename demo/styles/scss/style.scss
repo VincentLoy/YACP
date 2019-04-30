@@ -4,7 +4,7 @@
 * Author : Vincent Loy <vincent.loy1@gmail.com>
 * Copyright (c) Loy Vincent
 */
-@import url('https://fonts.googleapis.com/css?family=Roboto:100,300i,400,500,900');
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,300,300i,400,500,900');
 @import 'includes/reset';
 @import 'includes/flaticon';
 @import '../../../node_modules/basiclightbox/dist/basicLightbox.min';
@@ -163,8 +163,12 @@ header {
     margin: 0 0 ($spacing) 0;
     font-weight: 400;
 
+    &:not(:first-of-type) {
+      margin-top: $spacing;
+    }
+
     @media screen and (min-width: $bp) {
-      font-weight: 100;
+      font-weight: 300;
       font-size: 40px;
     }
   }
@@ -183,6 +187,9 @@ header {
 
   figcaption.figure-caption {
     color: white;
+    font-size: 18px;
+    font-weight: 300;
+    margin-top: 5px;
   }
 }
 
