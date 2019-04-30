@@ -1,7 +1,6 @@
 <div class="tutorial">
     <div class="step">
         <span>1</span>
-
         <ol class="tuto-ol">
             <li>Select a date</li>
             <li>Tick UTC if you want the date to be UTC</li>
@@ -12,7 +11,6 @@
     </div>
     <div class="step">
         <span>2</span>
-
         <ol class="tuto-ol">
             <li>You can use a custom wording (for days, hours, etc) by changing it</li>
             <li>Plural letter can be changed if your language use other letter than "S"</li>
@@ -20,10 +18,12 @@
     </div>
     <div class="step">
         <span>3</span>
-
         <ol class="tuto-ol">
             <li>Save the countdown</li>
-            <li>Copy the shortcode & past it into a post, a page, or wherever you want (advanced users)</li>
+            <li>
+                Copy the shortcode & past it into a post, a page,
+                or wherever you want (advanced users)
+            </li>
             <li>
                 If you like it, you can
                 <a target="_blank"
@@ -38,6 +38,7 @@
 <div class="footer">
     <p>
         <a href="https://vincent-loy.fr/" target="_blank">documentation</a>&nbsp;&nbsp;- &nbsp;
-        This plugin is developped by <a href="https://vincent-loy.fr/" target="_blank">Vincent Loy</a>
+        This plugin is developped by <a href="https://vincent-loy.fr/" target="_blank">Vincent
+            Loy</a>
     </p>
 </div>

@@ -24,6 +24,8 @@
     "gulp-eslint": "^1.1.1",
     "gulp-imagemin": "^2.4.0",
     "gulp-merge": "^0.1.1",
+    "gulp-phpcs": "^2.2.0",
+    "gulp-phplint": "^0.9.0",
     "gulp-sass": "^2.1.1",
     "gulp-uglify": "^3.0.2",
     "readable-stream": "^3.3.0"

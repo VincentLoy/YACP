@@ -23,7 +23,7 @@ class YacpPostType
      * Some needed actions are listed here too
      * YacpPostType constructor.
      */
-    function __construct()
+    public function __construct()
     {
         $this->custom_post_slug = 'yacp_post';
 
@@ -109,11 +109,11 @@ class YacpPostType
             ),
         );
 
-        add_action('init', array($this, 'register_my_cpts_yacp_post'));
-        add_action('add_meta_boxes', array($this, 'custom_meta_boxes'));
-        add_action('save_post', array($this, 'yacp_save_meta_box_data'));
-        add_filter('manage_yacp_post_posts_columns', array($this, 'set_custom_edit_yacp_post_columns'));
-        add_action('manage_yacp_post_posts_custom_column', array($this, 'custom_yacp_post_column'), 10, 2);
+        add_action('init', array($this, 'registerMyCptsYacpPost'));
+        add_action('add_meta_boxes', array($this, 'customMetaBoxes'));
+        add_action('save_post', array($this, 'yacpSaveMetaBoxData'));
+        add_filter('manage_yacp_post_posts_columns', array($this, 'setCustomEditYacpPostColumns'));
+        add_action('manage_yacp_post_posts_custom_column', array($this, 'customYacpPostColumn'), 10, 2);
     }
 
     /**
@@ -121,7 +121,7 @@ class YacpPostType
      * @param $columns
      * @return mixed
      */
-    public function set_custom_edit_yacp_post_columns($columns)
+    public function setCustomEditYacpPostColumns($columns)
     {
         $columns['yacp_date'] = __('End Date', 'yacp_textdomain');
         $columns['yacp_theme'] = __('Theme', 'yacp_textdomain');
@@ -134,14 +134,14 @@ class YacpPostType
      * @param $column
      * @param $post_id
      */
-    public function custom_yacp_post_column($column, $post_id)
+    public function customYacpPostColumn($column, $post_id)
     {
         switch ($column) {
-            case 'yacp_date' :
+            case 'yacp_date':
                 $terms = get_post_meta($post_id, '_yacp_date', true);
                 echo '<p class="mod-date">' . date('m/d/Y @ g:i a', strtotime($terms)) . '</p>';
                 break;
-            case 'yacp_theme' :
+            case 'yacp_theme':
                 echo get_post_meta($post_id, '_yacp_theme', true);
                 break;
         }
@@ -152,7 +152,7 @@ class YacpPostType
      * @param string $new_edit
      * @return bool
      */
-    protected function is_edit_page($new_edit = 'edit')
+    protected function isEditPage($new_edit = 'edit')
     {
         global $pagenow;
 
@@ -170,7 +170,7 @@ class YacpPostType
      * @param $post
      * @return array
      */
-    protected function get_template_context($post)
+    protected function getTemplateContext($post)
     {
         /*
          * Use get_post_meta() to retrieve an existing value
@@ -198,7 +198,7 @@ class YacpPostType
      * @param $value
      * @return string
      */
-    protected function populate_shortcode($center, $key, $value)
+    protected function populateShortcode($center, $key, $value)
     {
         return ' ' . $center . $key . '="' . $value . '"';
     }
@@ -208,14 +208,14 @@ class YacpPostType
      * @param $post
      * @return string
      */
-    protected function get_shortcode_preview($post)
+    protected function getShortcodePreview($post)
     {
         $sc_start = '[yacp';
         $sc_center = '';
         $sc_end = ']';
 
-        if ($this->is_edit_page()) {
-            $sc_center = $this->populate_shortcode($sc_center, 'id', $post->ID);
+        if ($this->isEditPage()) {
+            $sc_center = $this->populateShortcode($sc_center, 'id', $post->ID);
             return $sc_start . $sc_center . $sc_end;
         }
 
@@ -229,12 +229,12 @@ class YacpPostType
     /**
      * Add the YACP meta box
      */
-    public function custom_meta_boxes()
+    public function customMetaBoxes()
     {
         add_meta_box(
             'yacp_shortcode_preview_box',
             __('Shortcode', 'yacp_textdomain'),
-            array($this, 'yacp_add_shortcode_preview'),
+            array($this, 'yacpAddShortcodePreview'),
             $this->custom_post_slug,
             'normal',
             'low'
@@ -243,7 +243,7 @@ class YacpPostType
         add_meta_box(
             'yacp_countdown',
             __('YACP Countdown Settings', 'yacp_textdomain'),
-            array($this, 'yacp_add_theme_fields'),
+            array($this, 'yacpAddThemeFields'),
             $this->custom_post_slug,
             'normal',
             'high'
@@ -252,7 +252,7 @@ class YacpPostType
         add_meta_box(
             'yacp_donation_box',
             __('Make a donation <3', 'yacp_textdomain'),
-            array($this, 'yacp_donation'),
+            array($this, 'yacpDonation'),
             $this->custom_post_slug,
             'side',
             'core'
@@ -261,27 +261,27 @@ class YacpPostType
         add_meta_box(
             'yacp_last_box',
             __('test', 'yacp_textdomain'),
-            array($this, 'yacp_last_box'),
+            array($this, 'yacpLastBox'),
             $this->custom_post_slug,
             'advanced',
             'low'
         );
     }
 
-    public function yacp_last_box($post)
+    public function yacpLastBox($post)
     {
         include 'admin/last_box.php';
     }
 
-    public function yacp_donation($post)
+    public function yacpDonation($post)
     {
         include 'admin/donation_box.php';
     }
 
-    public function yacp_add_shortcode_preview($post)
+    public function yacpAddShortcodePreview($post)
     {
         // var used in the included template
-        $shortcode = $this->get_shortcode_preview($post);
+        $shortcode = $this->getShortcodePreview($post);
         include 'admin/tpl.yacp_shortcode_preview.php';
     }
 
@@ -290,14 +290,14 @@ class YacpPostType
      * This is where the form template is built
      * @param $post
      */
-    public function yacp_add_theme_fields($post)
+    public function yacpAddThemeFields($post)
     {
 
         // Add a nonce field so we can check for it later.
-        wp_nonce_field('yacp_save_meta_box_data', 'yacp_meta_box_nonce');
+        wp_nonce_field('yacpSaveMetaBoxData', 'yacp_meta_box_nonce');
 
         // var used in the included template
-        $ctx = $this->get_template_context($post);
+        $ctx = $this->getTemplateContext($post);
         include 'admin/tpl.yacp_custom_field.php';
     }
 
@@ -305,13 +305,13 @@ class YacpPostType
      * Save the custom meta tags for YACP post type
      * @param $post_id
      */
-    public function yacp_save_meta_box_data($post_id)
+    public function yacpSaveMetaBoxData($post_id)
     {
         if (!isset($_POST['yacp_meta_box_nonce'])) {
             return;
         }
 
-        if (!wp_verify_nonce($_POST['yacp_meta_box_nonce'], 'yacp_save_meta_box_data')) {
+        if (!wp_verify_nonce($_POST['yacp_meta_box_nonce'], 'yacpSaveMetaBoxData')) {
             return;
         }
 
@@ -371,7 +371,7 @@ class YacpPostType
     /**
      * Simply Register the YACP Custom Post Type
      */
-    public function register_my_cpts_yacp_post()
+    public function registerMyCptsYacpPost()
     {
         /**
          * Post Type: YACP Countdowns.

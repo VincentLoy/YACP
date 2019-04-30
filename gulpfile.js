@@ -5,6 +5,8 @@
 let gulp = require('gulp'),
     sass = require('gulp-sass'),
     babel = require('gulp-babel'),
+    phplint = require('gulp-phplint'),
+    phpcs = require('gulp-phpcs'),
     browserSpecificPrefixer = require('gulp-autoprefixer'),
     cssCompressor = require('gulp-csso'),
     jsCompressor = require('gulp-uglify'),
@@ -125,6 +127,24 @@ gulp.task('build:demo:es6', function () {
     );
 });
 
+gulp.task('lint:php', function() {
+    return gulp.src(['./libs/**/*.php'])
+        .pipe(phplint());
+});
+
+gulp.task('phpcs', function () {
+    return gulp.src(['./libs/**/*.php'])
+        // Validate files using PHP Code Sniffer
+        .pipe(phpcs({
+            bin: './vendor/bin/phpcs',
+            standard: 'PSR2',
+            warningSeverity: 0
+        }))
+        // Log all problems that was found
+        .pipe(phpcs.reporter('log'));
+});
+
+gulp.task('check:php', ['lint:php', 'phpcs']);
 
 /**
  * BUILD
