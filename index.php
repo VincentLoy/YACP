@@ -29,6 +29,8 @@ along with YACP. If not, see https://www.gnu.org/licenses/gpl-3.0.en.html
 
 use YACP\YACP;
 
-include "libs/YACP.php";
+define('YACP_URL', plugin_dir_url(__FILE__));
+
+include "sources/YACP.php";
 
 new YACP();

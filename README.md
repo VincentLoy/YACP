@@ -8,7 +8,7 @@ It's god damn easy-to-use, open-source, and developer friendly.
 YACP is easy to install, just drag and drop the zipped version 
 into the Wordpress Plugin installer.
 
-### No Limitation
+### No Limitations
 YACP is 100% shortcode based, and you can create unlimited 
 countdowns for your website. There is no premium version.
 

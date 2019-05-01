@@ -21,7 +21,7 @@ const JS_BACK_FILES = [
     // libs
     './node_modules/flatpickr/dist/flatpickr.js',
     // custom
-    './assets/dev/js/back/main.js',
+    './static/dev/js/back/main.js',
 ];
 
 const JS_FRONT_FILES = [
@@ -38,8 +38,8 @@ const JS_DEMO_FILES = [
 ];
 
 const YACP_THEMES = [
-    'assets/dev/styles/themes/yacp-simple-white.scss',
-    'assets/dev/styles/themes/yacp-simple-black.scss',
+    'static/dev/styles/themes/yacp-simple-white.scss',
+    'static/dev/styles/themes/yacp-simple-black.scss',
 ];
 
 gulp.task('build:themes', function () {
@@ -55,12 +55,12 @@ gulp.task('build:themes', function () {
            .pipe(cssCompressor({
                restructure: false,
            }))
-           .pipe(gulp.dest('assets/dist/themes'));
+           .pipe(gulp.dest('static/dist/themes'));
    });
 });
 
 gulp.task('build:scss', function () {
-    gulp.src('assets/dev/styles/yacp_backend.scss')
+    gulp.src('static/dev/styles/yacp_backend.scss')
         .pipe(sass({
             outputStyle: 'nested',
             precision: 10
@@ -71,9 +71,9 @@ gulp.task('build:scss', function () {
         .pipe(cssCompressor({
             restructure: false,
         }))
-        .pipe(gulp.dest('assets/dist'));
+        .pipe(gulp.dest('static/dist'));
 
-    return gulp.src('assets/dev/styles/yacp_frontend.scss')
+    return gulp.src('static/dev/styles/yacp_frontend.scss')
         .pipe(sass({
             outputStyle: 'compressed',
             precision: 10
@@ -81,7 +81,7 @@ gulp.task('build:scss', function () {
         .pipe(cssCompressor({
             restructure: false,
         }))
-        .pipe(gulp.dest('assets/dist'));
+        .pipe(gulp.dest('static/dist'));
 });
 
 gulp.task('build:demo:scss', function () {
@@ -102,7 +102,7 @@ gulp.task('build:back:es6', function () {
         .pipe(concat('yacp.backend.js'))
         .pipe(babel())
         .pipe(jsCompressor())
-        .pipe(gulp.dest('assets/dist'));
+        .pipe(gulp.dest('static/dist'));
 });
 
 gulp.task('build:front:es6', function () {
@@ -111,7 +111,7 @@ gulp.task('build:front:es6', function () {
         concat('yacp.front.js'),
         babel(),
         jsCompressor(),
-        gulp.dest('assets/dist')
+        gulp.dest('static/dist')
     );
 });
 
@@ -128,12 +128,12 @@ gulp.task('build:demo:es6', function () {
 });
 
 gulp.task('lint:php', function() {
-    return gulp.src(['./libs/**/*.php'])
+    return gulp.src(['./**/*.php', '!./vendor/**/*.*'])
         .pipe(phplint());
 });
 
 gulp.task('phpcs', function () {
-    return gulp.src(['./libs/**/*.php'])
+    return gulp.src(['./sources/**/*.php'])
         // Validate files using PHP Code Sniffer
         .pipe(phpcs({
             bin: './vendor/bin/phpcs',
@@ -168,13 +168,13 @@ gulp.task('serve', ['build:scss', 'build:themes', 'build:front:es6', 'build:back
         proxy: proxyServer,
     });
 
-    gulp.watch('./assets/dev/js/**/*.js', ['build:front:es6', 'build:back:es6'])
+    gulp.watch('./static/dev/js/**/*.js', ['build:front:es6', 'build:back:es6'])
         .on('change', reload);
 
-    gulp.watch('./assets/dev/styles/**/*', ['build:scss', 'build:themes'])
+    gulp.watch('./static/dev/styles/**/*', ['build:scss', 'build:themes'])
         .on('change', reload);
 
-    gulp.watch('./**/*.php')
+    gulp.watch('./**/*.php', ['check:php'])
         .on('change', reload);
 });
 

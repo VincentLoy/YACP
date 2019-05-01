@@ -36,11 +36,11 @@ class YACP
             ),
             'simple-white' => array(
                 'class' => 'simply-countdown-simple-white',
-                'css' => 'assets/dist/themes/yacp-simple-white.css',
+                'css' => 'static/dist/themes/yacp-simple-white.css',
             ),
             'simple-black' => array(
                 'class' => 'simply-countdown-simple-black',
-                'css' => 'assets/dist/themes/yacp-simple-black.css',
+                'css' => 'static/dist/themes/yacp-simple-black.css',
             ),
             'custom' => array(
                 'class' => 'simply-countdown-custom',
@@ -62,22 +62,22 @@ class YACP
 
     public function enqueueScriptsAndStyles()
     {
-        wp_register_script('yacp_js', plugin_dir_url(__DIR__) . 'assets/dist/yacp.front.js', false, '');
+        wp_register_script('yacp_js', plugin_dir_url(__DIR__) . 'static/dist/yacp.front.js', false, '');
         wp_enqueue_script('yacp_js');
 
-        wp_register_style('yacp_css', plugin_dir_url(__DIR__) . 'assets/dist/yacp_frontend.css', false, '');
+        wp_register_style('yacp_css', plugin_dir_url(__DIR__) . 'static/dist/yacp_frontend.css', false, '');
         wp_enqueue_style('yacp_css');
     }
 
     public function adminEnqueueStyles()
     {
-        wp_register_style('yacp_admin_css', plugin_dir_url(__DIR__) . 'assets/dist/yacp_backend.css', false, '');
+        wp_register_style('yacp_admin_css', plugin_dir_url(__DIR__) . 'static/dist/yacp_backend.css', false, '');
         wp_enqueue_style('yacp_admin_css');
     }
 
     public function adminEnqueueScripts()
     {
-        wp_register_script('yacp_admin_js', plugin_dir_url(__DIR__) . 'assets/dist/yacp.backend.js', false, '');
+        wp_register_script('yacp_admin_js', plugin_dir_url(__DIR__) . 'static/dist/yacp.backend.js', false, '');
         wp_enqueue_script('yacp_admin_js');
     }
 
