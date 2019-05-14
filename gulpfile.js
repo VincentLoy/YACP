@@ -30,13 +30,6 @@ const JS_FRONT_FILES = [
     // custom
 ];
 
-const JS_DEMO_FILES = [
-    // libs
-    './node_modules/basiclightbox/dist/basicLightbox.min.js',
-    './demo/js/app.js',
-    // custom
-];
-
 const YACP_THEMES = [
     'static/dev/styles/themes/yacp-simple-white.scss',
     'static/dev/styles/themes/yacp-simple-black.scss',
@@ -84,19 +77,6 @@ gulp.task('build:scss', function () {
         .pipe(gulp.dest('static/dist'));
 });
 
-gulp.task('build:demo:scss', function () {
-    return gulp.src('./demo/styles/scss/style.scss')
-        .pipe(sass({
-            outputStyle: 'compressed',
-            precision: 10
-        }).on('error', sass.logError))
-        .pipe(cssCompressor({
-            restructure: false,
-        }))
-        .pipe(gulp.dest('demo/styles'));
-});
-
-
 gulp.task('build:back:es6', function () {
     return gulp.src(JS_BACK_FILES)
         .pipe(concat('yacp.backend.js'))
@@ -112,18 +92,6 @@ gulp.task('build:front:es6', function () {
         babel(),
         jsCompressor(),
         gulp.dest('static/dist')
-    );
-});
-
-gulp.task('build:demo:es6', function () {
-    return pipeline(
-        gulp.src(JS_DEMO_FILES),
-        concat('app.min.js'),
-        babel({
-            presets: ['@babel/env']
-        }),
-        jsCompressor(),
-        gulp.dest('demo/js')
     );
 });
 
@@ -158,7 +126,6 @@ gulp.task('build', [
     'build:back:es6'
 ]);
 
-
 gulp.task('serve', ['build:scss', 'build:themes', 'build:front:es6', 'build:back:es6'], function () {
     browserSync({
         notify: true,
@@ -175,24 +142,6 @@ gulp.task('serve', ['build:scss', 'build:themes', 'build:front:es6', 'build:back
         .on('change', reload);
 
     gulp.watch('./**/*.php', ['check:php'])
-        .on('change', reload);
-});
-
-gulp.task('serve:demo', ['build:demo:scss', 'build:demo:es6'], function () {
-    browserSync({
-        notify: true,
-        port: 9000,
-        reloadDelay: 100,
-        browser: browserChoice,
-        server: {
-            baseDir: './'
-        }
-    });
-
-    gulp.watch('./index.html').on('change', reload);
-    gulp.watch('./demo/js/app.js', ['build:demo:es6'])
-        .on('change', reload);
-    gulp.watch('./demo/styles/scss/**/*', ['build:demo:scss'])
         .on('change', reload);
 });
 
