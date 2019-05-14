@@ -1,7 +1,7 @@
 {
   "name": "YACP",
-  "version": "1.0.0",
-  "description": "YACP stuff",
+  "version": "1.0.1",
+  "description": "YACP dev dependencies management",
   "main": "gulpfile.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
