@@ -301,6 +301,15 @@ class YacpPostType
         include 'admin/tpl.yacp_custom_field.php';
     }
 
+    protected function sanitizeData($data)
+    {
+        return strip_tags(
+            sanitize_text_field(
+                $data
+            )
+        );
+    }
+
     /**
      * Save the custom meta tags for YACP post type
      * @param $post_id
@@ -334,27 +343,20 @@ class YacpPostType
             return;
         }
 
-        $theme = sanitize_text_field($_POST['yacp_theme']);
-        $date = $_POST['yacp_date'];
-        $utc = $_POST['yacp_utc'];
-        $zero_pad = $_POST['yacp_zero_pad'];
-        $count_up = $_POST['yacp_count_up'];
-        $days = $_POST['yacp_days'];
-        $hours = $_POST['yacp_hours'];
-        $minutes = $_POST['yacp_minutes'];
-        $seconds = $_POST['yacp_seconds'];
-        $plural_letter = $_POST['yacp_plural_letter'];
+        $theme = $this->sanitizeData($_POST['yacp_theme']);
+        $date = $this->sanitizeData($_POST['yacp_date']);
+        $days = $this->sanitizeData($_POST['yacp_days']);
+        $hours = $this->sanitizeData($_POST['yacp_hours']);
+        $minutes = $this->sanitizeData($_POST['yacp_minutes']);
+        $seconds = $this->sanitizeData($_POST['yacp_seconds']);
+        $plural_letter = $this->sanitizeData($_POST['yacp_plural_letter']);
 
-        echo $theme;
-        echo $date;
-        echo $utc;
-        echo $zero_pad;
-        echo $count_up;
-        echo $days;
-        echo $hours;
-        echo $minutes;
-        echo $seconds;
-        echo $plural_letter;
+        $utc = !empty($this->sanitizeData($_POST['yacp_utc']))
+            && ($this->sanitizeData($_POST['yacp_utc']) === 'on');
+        $zero_pad = !empty($this->sanitizeData($_POST['yacp_zero_pad']))
+            && ($this->sanitizeData($_POST['yacp_zero_pad']) === 'on');
+        $count_up = !empty($this->sanitizeData($_POST['yacp_count_up']))
+            && ($this->sanitizeData($_POST['yacp_count_up']) === 'on');
 
         update_post_meta($post_id, $this->custom_fields['theme']['key'], $theme);
         update_post_meta($post_id, $this->custom_fields['date']['key'], $date);
