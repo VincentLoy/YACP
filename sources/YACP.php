@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Author: Vincent Loy <vincent.loy1@gmail.com>
  * Date: 11/26/18
@@ -21,8 +20,8 @@ class YACP
     public function __construct()
     {
         $this->init();
-        $this->load_assets();
-        $this->load_shortcode();
+        $this->loadAssets();
+        $this->loadShortcode();
 
         // See var available_themes in class.YacpPostType.php, they must be sync
         $this->themes = array(
@@ -37,11 +36,11 @@ class YACP
             ),
             'simple-white' => array(
                 'class' => 'simply-countdown-simple-white',
-                'css' => 'assets/dist/themes/yacp-simple-white.css',
+                'css' => 'static/dist/themes/yacp-simple-white.css',
             ),
             'simple-black' => array(
                 'class' => 'simply-countdown-simple-black',
-                'css' => 'assets/dist/themes/yacp-simple-black.css',
+                'css' => 'static/dist/themes/yacp-simple-black.css',
             ),
             'custom' => array(
                 'class' => 'simply-countdown-custom',
@@ -54,40 +53,40 @@ class YACP
         new \YACP\YacpPostType();
     }
 
-    protected function load_assets()
+    protected function loadAssets()
     {
-        add_action('admin_enqueue_scripts', array($this, 'admin_enqueue_styles'));
-        add_action('admin_enqueue_scripts', array($this, 'admin_enqueue_scripts'));
-        add_action('wp_footer', array($this, 'enqueue_scripts_and_styles'));
+        add_action('admin_enqueue_scripts', array($this, 'adminEnqueueStyles'));
+        add_action('admin_enqueue_scripts', array($this, 'adminEnqueueScripts'));
+        add_action('wp_footer', array($this, 'enqueueScriptsAndStyles'));
     }
 
-    public function enqueue_scripts_and_styles()
+    public function enqueueScriptsAndStyles()
     {
-        wp_register_script('yacp_js', plugin_dir_url(__DIR__) . 'assets/dist/yacp.front.js', false, '');
+        wp_register_script('yacp_js', plugin_dir_url(__DIR__) . 'static/dist/yacp.front.js', false, '');
         wp_enqueue_script('yacp_js');
 
-        wp_register_style('yacp_css', plugin_dir_url(__DIR__) . 'assets/dist/yacp_frontend.css', false, '');
+        wp_register_style('yacp_css', plugin_dir_url(__DIR__) . 'static/dist/yacp_frontend.css', false, '');
         wp_enqueue_style('yacp_css');
     }
 
-    public function admin_enqueue_styles()
+    public function adminEnqueueStyles()
     {
-        wp_register_style('yacp_admin_css', plugin_dir_url(__DIR__) . 'assets/dist/yacp_backend.css', false, '');
+        wp_register_style('yacp_admin_css', plugin_dir_url(__DIR__) . 'static/dist/yacp_backend.css', false, '');
         wp_enqueue_style('yacp_admin_css');
     }
 
-    public function admin_enqueue_scripts()
+    public function adminEnqueueScripts()
     {
-        wp_register_script('yacp_admin_js', plugin_dir_url(__DIR__) . 'assets/dist/yacp.backend.js', false, '');
+        wp_register_script('yacp_admin_js', plugin_dir_url(__DIR__) . 'static/dist/yacp.backend.js', false, '');
         wp_enqueue_script('yacp_admin_js');
     }
 
-    public function load_shortcode()
+    public function loadShortcode()
     {
-        add_shortcode('yacp', array($this, 'yacp_shortcode'));
+        add_shortcode('yacp', array($this, 'yacpShortcode'));
     }
 
-    protected function generate_javascript($cd, $uid) 
+    protected function generateJavascript($cd, $uid)
     {
         $cd_start_tag = '<script>';
         $cd_code = "
@@ -134,10 +133,10 @@ class YACP
             ";
         $cd_end_tag = '</script>';
 
-        return $cd_start_tag . $cd_code .$cd_end_tag;
+        return $cd_start_tag . $cd_code . $cd_end_tag;
     }
 
-    public function yacp_shortcode($params)
+    public function yacpShortcode($params)
     {
         $params = shortcode_atts(array(
             'id' => null,
@@ -170,11 +169,9 @@ class YACP
                 wp_enqueue_style($name);
             }
 
-            return '<div id="yacp-' . $uid . '" class="yacp-countdown ' . $this->themes[$cd->yacp_theme]['class'] . '"></div>' . $this->generate_javascript($cd, $uid);
+            return '<div id="yacp-' . $uid . '" class="yacp-countdown ' . $this->themes[$cd->yacp_theme]['class'] . '"></div>' . $this->generateJavascript($cd, $uid);
         } else {
-
             return "Can't display the countdown...";
         }
-
     }
 }
