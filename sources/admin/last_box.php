@@ -37,7 +37,7 @@
 
 <div class="footer">
     <p>
-        <a href="https://vincent-loy.fr/" target="_blank">documentation</a>&nbsp;&nbsp;- &nbsp;
+        <a href="https://vincentloy.github.io/YACP-docs/" target="_blank">documentation</a>&nbsp;&nbsp;- &nbsp;
         This plugin is developped by <a href="https://vincent-loy.fr/" target="_blank">Vincent
             Loy</a>
     </p>
