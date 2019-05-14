@@ -4,7 +4,7 @@ Plugin Name: Yet Another Countdown Plugin
 Plugin URI: https://vincentloy.github.io/YACP/
 Description: YACP (Yet Another Countdown Plugin) allow you to add a countdown to any Wordpress post and page. It's easy to use, open source, and developer friendly
 Author: Vincent Loy
-Version: 1.0.0
+Version: 1.0.1
 Author URI: https://vincent-loy.fr/
 License: GPLv3
 

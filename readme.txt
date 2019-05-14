@@ -4,7 +4,7 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=RQCWG
 Tags: yacp, yet another countdown plugin, countdown, countup, timer
 Requires at least: 4.6
 Tested up to: 5.1.1
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 Requires PHP: 5.2.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
