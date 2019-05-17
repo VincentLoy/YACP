@@ -3,7 +3,7 @@ Contributors: vincentloy1
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=RQCWG6MMSNCC8&item_name=Support+YACP+Plugin+Dev&currency_code=EUR&source=url
 Tags: yacp, yet another countdown plugin, countdown, countup, timer
 Requires at least: 4.6
-Tested up to: 5.1.1
+Tested up to: 5.2.0
 Stable tag: 1.0.1
 Requires PHP: 5.2.4
 License: GPLv3
@@ -58,6 +58,9 @@ YACP is easy to install, just drag and drop the zipped version into the Wordpres
 4. YACP creation countdown page example
 
 == Changelog ==
+
+= 1.0.1 =
+* Some code refactoring and improve security
 
 = 1.0.0 =
 * First release
