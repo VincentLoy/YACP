@@ -1,7 +1,7 @@
 # YACP - Yet Another Countdown Plugin
 ## A flexible Countdown plugin for Wordpress
 
-YACP allow you to add a countdown to any Wordpress post or page.
+[YACP](https://wordpress.org/plugins/yacp/) allow you to add a countdown to any Wordpress post or page.
 It's god damn easy-to-use, open-source, and developer friendly.
 
 ### Easy Install
@@ -26,3 +26,5 @@ that will create a countdown without any styles. The created countdown will have
 
 See the [custom CSS template](https://gist.github.com/VincentLoy/60e85332452598b276e9f1162ed2f055)
 for more information.
+
+Check it on [wordpress.org repository](https://wordpress.org/plugins/yacp/).
